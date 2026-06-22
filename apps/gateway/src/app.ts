@@ -1,10 +1,10 @@
 import { Elysia } from 'elysia';
-import { errorHandler } from './core/error.handler';
+import { errorPlugin } from './plugins/error.plugin';
 import { authModule } from './modules/auth';
 import { env } from './core/env';
 import openapi from '@elysiajs/openapi';
 
-export const app = new Elysia().use(errorHandler).use(authModule.plugin);
+export const app = new Elysia().use(errorPlugin).use(authModule.plugin);
 
 if (env.NODE_ENV !== 'production') {
     app.use(
@@ -37,8 +37,8 @@ if (env.NODE_ENV !== 'production') {
                         CookieAuth: {
                             type: 'apiKey',
                             in: 'cookie',
-                            name: 'auth_token',
-                            description: 'Authentication cookie: auth_token=<token>',
+                            name: 'access_token',
+                            description: 'Authentication cookie: access_token=<token>',
                         },
                     },
                 },

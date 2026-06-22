@@ -1,6 +1,6 @@
 import { Elysia, ValidationError } from 'elysia';
-import { AppError } from './errors';
-import { logger } from './logger';
+import { AppError } from '../core/errors';
+import { logger } from '../core/logger';
 
 const STATUS_MAP: Record<string, number> = {
     CONFLICT: 409,
@@ -9,7 +9,7 @@ const STATUS_MAP: Record<string, number> = {
     VALIDATION: 422,
 };
 
-export const errorHandler = new Elysia({ name: 'error-handler' }).onError({ as: 'global' }, ({ error, code, set, status }) => {
+export const errorPlugin = new Elysia({ name: 'error-handler' }).onError({ as: 'global' }, ({ error, code, set, status }) => {
     if (error instanceof AppError) {
         return status(STATUS_MAP[error.code] ?? 400, {
             error: error.code,

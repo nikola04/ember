@@ -1,3 +1,3 @@
-export { accounts } from './accounts';
-export { sessions } from './sessions';
-export { users } from './users';
+export * from './accounts';
+export * from './sessions';
+export * from './users';
