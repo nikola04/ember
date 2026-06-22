@@ -3,12 +3,13 @@ import { z } from 'zod';
 const EnvSchema = z.object({
     // --- runtime ---
     NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
+    VERSION: z.string().default(process.env.npm_package_version ?? '0.0.0'),
     PORT: z.coerce.number().int().positive().default(3000),
     HOSTNAME: z.string().default('0.0.0.0'),
-
+    // --- auth ---
+    JWT_SECRET: z.string().min(24).max(512),
     // --- database ---
     DATABASE_URL: z.string().url(),
-
     // --- logging ---
     LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).default('info'),
 });

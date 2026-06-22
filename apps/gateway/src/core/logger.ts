@@ -36,7 +36,7 @@ export const logger = pino(
         },
         base: { env: env.NODE_ENV },
     },
-    pino.multistream(streams),
+    pino.multistream(streams)
 );
 
 logger.info({ logFile }, 'logger initialized');

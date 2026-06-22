@@ -11,10 +11,19 @@
         "dev:gateway": "bun --env-file=.env --filter @ember/gateway dev",
         "dev:web": "bun --env-file=.env --filter @ember/web dev",
         "db:generate": "bun --filter @ember/db generate",
-        "db:migrate": "bun --env-file=.env --filter @ember/db migrate"
+        "db:migrate": "bun --env-file=.env --filter @ember/db migrate",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "format": "prettier --write .",
+        "format:check": "prettier --check ."
     },
     "devDependencies": {
         "@types/bun": "latest",
+        "@typescript-eslint/eslint-plugin": "^8.15.0",
+        "@typescript-eslint/parser": "^8.15.0",
+        "eslint": "^9.15.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.2.1",
         "prettier": "3.8.4",
         "typescript": "^5"
     }
