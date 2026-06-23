@@ -1,0 +1,1489 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="./support.js"></script>
+    </head>
+    <body>
+        <x-dc>
+            <helmet>
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+                <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,200..500,0..1,0&display=swap"
+                    rel="stylesheet"
+                />
+                <style>
+                    * {
+                        box-sizing: border-box;
+                    }
+                    html,
+                    body {
+                        margin: 0;
+                        padding: 0;
+                        height: 100%;
+                        background: #070708;
+                    }
+                    ::-webkit-scrollbar {
+                        width: 8px;
+                        height: 8px;
+                    }
+                    ::-webkit-scrollbar-thumb {
+                        background: #1c1c22;
+                        border-radius: 8px;
+                    }
+                    ::-webkit-scrollbar-thumb:hover {
+                        background: #26262e;
+                    }
+                    ::-webkit-scrollbar-track {
+                        background: transparent;
+                    }
+                    .ms {
+                        font-family: 'Material Symbols Rounded';
+                        font-weight: normal;
+                        font-style: normal;
+                        line-height: 1;
+                        letter-spacing: normal;
+                        text-transform: none;
+                        white-space: nowrap;
+                        direction: ltr;
+                        -webkit-font-feature-settings: 'liga';
+                        -webkit-font-smoothing: antialiased;
+                        user-select: none;
+                    }
+                    @keyframes ember-typing {
+                        0%,
+                        60%,
+                        100% {
+                            opacity: 0.28;
+                            transform: translateY(0);
+                        }
+                        30% {
+                            opacity: 1;
+                            transform: translateY(-3px);
+                        }
+                    }
+                    @keyframes ember-speak {
+                        0%,
+                        100% {
+                            box-shadow: 0 0 0 0 rgba(143, 217, 191, 0.5);
+                        }
+                        70% {
+                            box-shadow: 0 0 0 4px rgba(143, 217, 191, 0);
+                        }
+                    }
+                    @keyframes ember-glow {
+                        0%,
+                        100% {
+                            opacity: 0.85;
+                        }
+                        50% {
+                            opacity: 1;
+                        }
+                    }
+                </style>
+            </helmet>
+
+            <div
+                style="
+                    display: flex;
+                    height: 100vh;
+                    width: 100vw;
+                    overflow: hidden;
+                    background: #0c0c0f;
+                    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+                    color: #d8d8de;
+                    position: relative;
+                    font-size: 15px;
+                    -webkit-font-smoothing: antialiased;
+                "
+            >
+                <!-- ================= SERVER RAIL ================= -->
+                <div
+                    style="
+                        width: 68px;
+                        flex: none;
+                        background: #070708;
+                        border-right: 1px solid #131318;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        padding: 14px 0;
+                        gap: 9px;
+                        z-index: 3;
+                    "
+                >
+                    <div
+                        title="Ember"
+                        style="
+                            width: 46px;
+                            height: 46px;
+                            border-radius: 14px;
+                            background: linear-gradient(155deg, #161013, #0e0a0b);
+                            border: 1px solid #2c1c1a;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            cursor: pointer;
+                            box-shadow: 0 0 24px -7px rgba(227, 93, 58, 0.5);
+                        "
+                    >
+                        <svg width="25" height="25" viewBox="0 0 24 24" fill="none" style="animation: ember-glow 3.4s ease-in-out infinite">
+                            <path
+                                d="M12 2.5c2.4 3 1.8 5.4 1 7 1-0.6 1.7-1.6 2-2.9 1.7 1.7 3 4 3 6.7a6 6 0 0 1-12 0c0-2.3 1.1-4 2.4-5.3.2 1.4.9 2.1 1.7 2.3-1.2-2.6-0.6-5.2 1.9-7.8Z"
+                                fill="#e35d3a"
+                            />
+                            <path
+                                d="M12 13c1.6 1.1 2.4 2.6 2.4 4.1a2.4 2.4 0 0 1-4.8.2c0-1 .5-1.9 1.3-2.6.1.8.5 1.2 1 1.3-.5-1.1-.3-2.2.1-3Z"
+                                fill="#fbd0bb"
+                            />
+                        </svg>
+                    </div>
+                    <div style="width: 26px; height: 1px; background: #1c1c22; margin: 3px 0"></div>
+
+                    <div style="position: relative; width: 46px; height: 46px; flex: none">
+                        <div
+                            style="
+                                position: absolute;
+                                left: -14px;
+                                top: 50%;
+                                transform: translateY(-50%);
+                                width: 4px;
+                                height: 30px;
+                                background: #e35d3a;
+                                border-radius: 0 4px 4px 0;
+                            "
+                        ></div>
+                        <div
+                            style="
+                                width: 46px;
+                                height: 46px;
+                                border-radius: 14px;
+                                background: #3a2a26;
+                                border: 1px solid #4a342f;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: #efe2dc;
+                                font-weight: 500;
+                                font-size: 15px;
+                                letter-spacing: 0.02em;
+                                cursor: pointer;
+                            "
+                        >
+                            TH
+                        </div>
+                    </div>
+
+                    <div
+                        style="
+                            width: 46px;
+                            height: 46px;
+                            border-radius: 14px;
+                            background: #222730;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: #9aa0aa;
+                            font-weight: 500;
+                            font-size: 15px;
+                            cursor: pointer;
+                            transition:
+                                border-radius 0.18s,
+                                background 0.18s;
+                        "
+                        style-hover="border-radius:16px;background:#2a3340"
+                    >
+                        WK
+                    </div>
+                    <div
+                        style="
+                            width: 46px;
+                            height: 46px;
+                            border-radius: 14px;
+                            background: #252a26;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: #9aa49a;
+                            font-weight: 500;
+                            font-size: 14px;
+                            cursor: pointer;
+                            transition:
+                                border-radius 0.18s,
+                                background 0.18s;
+                        "
+                        style-hover="border-radius:16px;background:#2d342d"
+                    >
+                        DEV
+                    </div>
+                    <div
+                        style="
+                            width: 46px;
+                            height: 46px;
+                            border-radius: 14px;
+                            background: #2b2630;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: #a59aa4;
+                            font-weight: 500;
+                            font-size: 15px;
+                            cursor: pointer;
+                            transition:
+                                border-radius 0.18s,
+                                background 0.18s;
+                        "
+                        style-hover="border-radius:16px;background:#332d3a"
+                    >
+                        MU
+                    </div>
+                    <div
+                        style="
+                            width: 46px;
+                            height: 46px;
+                            border-radius: 14px;
+                            background: #2d2a24;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: #a8a293;
+                            font-weight: 500;
+                            font-size: 15px;
+                            cursor: pointer;
+                            transition:
+                                border-radius 0.18s,
+                                background 0.18s;
+                        "
+                        style-hover="border-radius:16px;background:#36322a"
+                    >
+                        BK
+                    </div>
+
+                    <div
+                        style="
+                            width: 46px;
+                            height: 46px;
+                            border-radius: 14px;
+                            border: 1px dashed #2a2a32;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            cursor: pointer;
+                            transition:
+                                border-color 0.18s,
+                                background 0.18s;
+                        "
+                        style-hover="border-color:#3a564c;background:#101714"
+                    >
+                        <span class="ms" style="font-size: 22px; color: #8fd9bf; font-variation-settings: 'wght' 300">add</span>
+                    </div>
+
+                    <div
+                        style="
+                            margin-top: auto;
+                            width: 46px;
+                            height: 46px;
+                            border-radius: 14px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            cursor: pointer;
+                            color: #4a4a52;
+                            transition: color 0.18s;
+                        "
+                        style-hover="color:#8a8a94"
+                    >
+                        <span class="ms" style="font-size: 22px; font-variation-settings: 'wght' 250">explore</span>
+                    </div>
+                </div>
+
+                <!-- ================= CHANNEL SIDEBAR ================= -->
+                <div
+                    style="
+                        width: 244px;
+                        flex: none;
+                        background: #0a0a0c;
+                        border-right: 1px solid #16161b;
+                        display: flex;
+                        flex-direction: column;
+                        z-index: 2;
+                    "
+                >
+                    <div
+                        style="
+                            height: 56px;
+                            flex: none;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            padding: 0 18px;
+                            border-bottom: 1px solid #16161b;
+                            cursor: pointer;
+                            transition: background 0.18s;
+                        "
+                        style-hover="background:#0c0c0f"
+                    >
+                        <span style="font-weight: 500; font-size: 15.5px; color: #f0f0f4; letter-spacing: 0.01em">The Hideout</span>
+                        <span class="ms" style="font-size: 20px; color: #6a6a74; font-variation-settings: 'wght' 250">expand_more</span>
+                    </div>
+
+                    <div style="flex: 1; overflow-y: auto; padding: 16px 10px 10px">
+                        <div
+                            onClick="{{ toggleText }}"
+                            style="
+                                display: flex;
+                                align-items: center;
+                                gap: 4px;
+                                padding: 4px 8px;
+                                cursor: pointer;
+                                color: #6a6a74;
+                                transition: color 0.18s;
+                            "
+                            style-hover="color:#9a9aa2"
+                        >
+                            <span
+                                class="ms"
+                                style="font-size:16px;font-variation-settings:'wght' 300;transition:transform .18s;transform:{{ textRot }}"
+                                >expand_more</span
+                            >
+                            <span style="font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em">General</span>
+                        </div>
+                        <sc-if value="{{ textOpen }}" hint-placeholder-val="{{ true }}">
+                            <div style="display: flex; flex-direction: column; gap: 1px; margin-top: 2px">
+                                <div
+                                    style="
+                                        position: relative;
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 9px;
+                                        padding: 7px 10px;
+                                        border-radius: 7px;
+                                        background: #15151a;
+                                        cursor: pointer;
+                                    "
+                                >
+                                    <div
+                                        style="
+                                            position: absolute;
+                                            left: 0;
+                                            top: 50%;
+                                            transform: translateY(-50%);
+                                            width: 3px;
+                                            height: 18px;
+                                            background: #e35d3a;
+                                            border-radius: 0 3px 3px 0;
+                                        "
+                                    ></div>
+                                    <span class="ms" style="font-size: 18px; color: #e35d3a; font-variation-settings: 'wght' 300">tag</span>
+                                    <span style="color: #f0f0f4; font-weight: 500; font-size: 14.5px">general</span>
+                                </div>
+                                <div
+                                    style="
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 9px;
+                                        padding: 7px 10px;
+                                        border-radius: 7px;
+                                        cursor: pointer;
+                                        color: #6a6a74;
+                                        transition:
+                                            background 0.15s,
+                                            color 0.15s;
+                                    "
+                                    style-hover="background:#101015;color:#c8c8d0"
+                                >
+                                    <span class="ms" style="font-size: 18px; font-variation-settings: 'wght' 300">tag</span>
+                                    <span style="font-size: 14.5px">random</span>
+                                </div>
+                                <div
+                                    style="
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 9px;
+                                        padding: 7px 10px;
+                                        border-radius: 7px;
+                                        cursor: pointer;
+                                        color: #6a6a74;
+                                        transition:
+                                            background 0.15s,
+                                            color 0.15s;
+                                    "
+                                    style-hover="background:#101015;color:#c8c8d0"
+                                >
+                                    <span class="ms" style="font-size: 18px; font-variation-settings: 'wght' 300">tag</span>
+                                    <span style="font-size: 14.5px">links</span>
+                                </div>
+                                <div
+                                    style="
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 9px;
+                                        padding: 7px 10px;
+                                        border-radius: 7px;
+                                        cursor: pointer;
+                                        color: #6a6a74;
+                                        transition:
+                                            background 0.15s,
+                                            color 0.15s;
+                                    "
+                                    style-hover="background:#101015;color:#c8c8d0"
+                                >
+                                    <span class="ms" style="font-size: 18px; font-variation-settings: 'wght' 300">tag</span>
+                                    <span style="font-size: 14.5px">photos</span>
+                                </div>
+                            </div>
+                        </sc-if>
+
+                        <div
+                            onClick="{{ toggleVoice }}"
+                            style="
+                                display: flex;
+                                align-items: center;
+                                gap: 4px;
+                                padding: 4px 8px;
+                                margin-top: 14px;
+                                cursor: pointer;
+                                color: #6a6a74;
+                                transition: color 0.18s;
+                            "
+                            style-hover="color:#9a9aa2"
+                        >
+                            <span
+                                class="ms"
+                                style="font-size:16px;font-variation-settings:'wght' 300;transition:transform .18s;transform:{{ voiceRot }}"
+                                >expand_more</span
+                            >
+                            <span style="font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em">Voice</span>
+                        </div>
+                        <sc-if value="{{ voiceOpen }}" hint-placeholder-val="{{ true }}">
+                            <div style="display: flex; flex-direction: column; gap: 1px; margin-top: 2px">
+                                <div
+                                    style="
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 9px;
+                                        padding: 7px 10px;
+                                        border-radius: 7px;
+                                        cursor: pointer;
+                                        transition: background 0.15s;
+                                    "
+                                    style-hover="background:#101015"
+                                >
+                                    <span class="ms" style="font-size: 18px; color: #8fd9bf; font-variation-settings: 'wght' 300"
+                                        >graphic_eq</span
+                                    >
+                                    <span style="font-size: 14.5px; color: #d8d8de">Lounge</span>
+                                </div>
+                                <div style="display: flex; flex-direction: column; gap: 5px; padding: 5px 10px 7px 24px">
+                                    <div style="display: flex; align-items: center; gap: 8px">
+                                        <div
+                                            style="
+                                                width: 24px;
+                                                height: 24px;
+                                                border-radius: 8px;
+                                                background: #6e4f44;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;
+                                                color: #f2e3dc;
+                                                font-size: 11px;
+                                                font-weight: 500;
+                                                border: 1.5px solid #8fd9bf;
+                                                animation: ember-speak 2.2s ease-out infinite;
+                                            "
+                                        >
+                                            M
+                                        </div>
+                                        <span style="font-size: 13px; color: #8fd9bf">maya</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 8px">
+                                        <div
+                                            style="
+                                                width: 24px;
+                                                height: 24px;
+                                                border-radius: 8px;
+                                                background: #4f5e72;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;
+                                                color: #e3e8f0;
+                                                font-size: 11px;
+                                                font-weight: 500;
+                                                opacity: 0.6;
+                                            "
+                                        >
+                                            T
+                                        </div>
+                                        <span style="font-size: 13px; color: #7a7a84">theo</span>
+                                        <span
+                                            class="ms"
+                                            style="font-size: 14px; color: #5a5a64; margin-left: auto; font-variation-settings: 'wght' 300"
+                                            >mic_off</span
+                                        >
+                                    </div>
+                                </div>
+                                <div
+                                    style="
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 9px;
+                                        padding: 7px 10px;
+                                        border-radius: 7px;
+                                        cursor: pointer;
+                                        color: #6a6a74;
+                                        transition:
+                                            background 0.15s,
+                                            color 0.15s;
+                                    "
+                                    style-hover="background:#101015;color:#c8c8d0"
+                                >
+                                    <span class="ms" style="font-size: 18px; font-variation-settings: 'wght' 300">graphic_eq</span>
+                                    <span style="font-size: 14.5px">Gaming</span>
+                                </div>
+                            </div>
+                        </sc-if>
+                    </div>
+
+                    <div
+                        style="
+                            flex: none;
+                            height: 60px;
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+                            padding: 0 12px;
+                            background: #0e0e12;
+                            border-top: 1px solid #16161b;
+                        "
+                    >
+                        <div style="position: relative; flex: none">
+                            <div
+                                style="
+                                    width: 34px;
+                                    height: 34px;
+                                    border-radius: 10px;
+                                    background: #57664f;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    color: #eaf0e6;
+                                    font-size: 13px;
+                                    font-weight: 500;
+                                "
+                            >
+                                J
+                            </div>
+                            <div
+                                style="
+                                    position: absolute;
+                                    right: -2px;
+                                    bottom: -2px;
+                                    width: 11px;
+                                    height: 11px;
+                                    border-radius: 50%;
+                                    background: #5fa87a;
+                                    border: 2.5px solid #0e0e12;
+                                "
+                            ></div>
+                        </div>
+                        <div style="min-width: 0; flex: 1">
+                            <div style="font-size: 13.5px; font-weight: 500; color: #e8e8ee; line-height: 1.2">jordan</div>
+                            <div style="font-size: 11.5px; color: #6a6a74; line-height: 1.2">online</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 2px">
+                            <div
+                                style="
+                                    width: 30px;
+                                    height: 30px;
+                                    border-radius: 8px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    cursor: pointer;
+                                    color: #8a8a94;
+                                    transition:
+                                        background 0.15s,
+                                        color 0.15s;
+                                "
+                                style-hover="background:#16161b;color:#d8d8de"
+                            >
+                                <span class="ms" style="font-size: 18px; font-variation-settings: 'wght' 250">mic</span>
+                            </div>
+                            <div
+                                style="
+                                    width: 30px;
+                                    height: 30px;
+                                    border-radius: 8px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    cursor: pointer;
+                                    color: #8a8a94;
+                                    transition:
+                                        background 0.15s,
+                                        color 0.15s;
+                                "
+                                style-hover="background:#16161b;color:#d8d8de"
+                            >
+                                <span class="ms" style="font-size: 18px; font-variation-settings: 'wght' 250">headphones</span>
+                            </div>
+                            <div
+                                style="
+                                    width: 30px;
+                                    height: 30px;
+                                    border-radius: 8px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    cursor: pointer;
+                                    color: #8a8a94;
+                                    transition:
+                                        background 0.15s,
+                                        color 0.15s;
+                                "
+                                style-hover="background:#16161b;color:#d8d8de"
+                            >
+                                <span class="ms" style="font-size: 18px; font-variation-settings: 'wght' 250">settings</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= MAIN AREA ================= -->
+                <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; background: #0c0c0f; position: relative">
+                    <div
+                        style="
+                            position: absolute;
+                            inset: 0;
+                            pointer-events: none;
+                            background: radial-gradient(circle at 22% -8%, rgba(227, 93, 58, 0.05), transparent 42%);
+                            z-index: 0;
+                        "
+                    ></div>
+
+                    <div
+                        style="
+                            height: 56px;
+                            flex: none;
+                            display: flex;
+                            align-items: center;
+                            gap: 14px;
+                            padding: 0 18px;
+                            border-bottom: 1px solid #16161b;
+                            position: relative;
+                            z-index: 2;
+                            background: rgba(12, 12, 15, 0.7);
+                            backdrop-filter: blur(8px);
+                        "
+                    >
+                        <span class="ms" style="font-size: 20px; color: #5a5a64; font-variation-settings: 'wght' 300">tag</span>
+                        <span style="font-weight: 500; font-size: 16px; color: #f0f0f4">general</span>
+                        <div style="width: 1px; height: 18px; background: #20202a"></div>
+                        <span
+                            style="
+                                font-size: 13.5px;
+                                color: #6a6a74;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                max-width: 280px;
+                            "
+                            >everything and nothing — the main channel</span
+                        >
+                        <div style="margin-left: auto; display: flex; align-items: center; gap: 4px">
+                            <div
+                                style="
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 8px;
+                                    background: #101015;
+                                    border: 1px solid #1c1c22;
+                                    border-radius: 9px;
+                                    padding: 6px 12px;
+                                    width: 170px;
+                                    cursor: text;
+                                "
+                            >
+                                <span class="ms" style="font-size: 16px; color: #5a5a64; font-variation-settings: 'wght' 300">search</span>
+                                <span style="font-size: 13px; color: #4a4a52">Search</span>
+                            </div>
+                            <div
+                                style="
+                                    width: 34px;
+                                    height: 34px;
+                                    border-radius: 9px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    cursor: pointer;
+                                    color: #8a8a94;
+                                    transition:
+                                        background 0.15s,
+                                        color 0.15s;
+                                "
+                                style-hover="background:#16161b;color:#d8d8de"
+                            >
+                                <span class="ms" style="font-size: 19px; font-variation-settings: 'wght' 250">notifications</span>
+                            </div>
+                            <div
+                                style="
+                                    width: 34px;
+                                    height: 34px;
+                                    border-radius: 9px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    cursor: pointer;
+                                    color: #8a8a94;
+                                    transition:
+                                        background 0.15s,
+                                        color 0.15s;
+                                "
+                                style-hover="background:#16161b;color:#d8d8de"
+                            >
+                                <span class="ms" style="font-size: 19px; font-variation-settings: 'wght' 250">push_pin</span>
+                            </div>
+                            <div
+                                onClick="{{ toggleMembers }}"
+                                style="width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:{{ membersIconColor }};background:{{ membersIconBg }};transition:background .15s,color .15s"
+                            >
+                                <span class="ms" style="font-size: 19px; font-variation-settings: 'wght' 250">group</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="flex: 1; overflow-y: auto; padding: 8px 4px 4px; position: relative; z-index: 1">
+                        <div style="display: flex; align-items: center; gap: 14px; padding: 18px 24px 6px">
+                            <div style="flex: 1; height: 1px; background: #16161b"></div>
+                            <span
+                                style="font-size: 11px; font-weight: 500; color: #6a6a74; text-transform: uppercase; letter-spacing: 0.1em"
+                                >Today</span
+                            >
+                            <div style="flex: 1; height: 1px; background: #16161b"></div>
+                        </div>
+
+                        <div
+                            style="display: flex; gap: 14px; padding: 10px 24px; transition: background 0.12s"
+                            style-hover="background:#0e0e12"
+                        >
+                            <div
+                                style="
+                                    width: 42px;
+                                    height: 42px;
+                                    flex: none;
+                                    border-radius: 14px;
+                                    background: #6e4f44;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    color: #f2e3dc;
+                                    font-size: 16px;
+                                    font-weight: 500;
+                                "
+                            >
+                                M
+                            </div>
+                            <div style="min-width: 0">
+                                <div style="display: flex; align-items: baseline; gap: 9px; margin-bottom: 3px">
+                                    <span style="font-weight: 500; font-size: 15px; color: #e35d3a">maya</span>
+                                    <span style="font-size: 11px; color: #4a4a52">9:24</span>
+                                </div>
+                                <div style="line-height: 1.55; color: #d8d8de">ok who's actually around this weekend</div>
+                                <div style="line-height: 1.55; color: #d8d8de; margin-top: 2px">
+                                    thinking we finally do the game night thing
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            style="display: flex; gap: 14px; padding: 10px 24px; transition: background 0.12s"
+                            style-hover="background:#0e0e12"
+                        >
+                            <div
+                                style="
+                                    width: 42px;
+                                    height: 42px;
+                                    flex: none;
+                                    border-radius: 14px;
+                                    background: #4f5e72;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    color: #e3e8f0;
+                                    font-size: 16px;
+                                    font-weight: 500;
+                                "
+                            >
+                                T
+                            </div>
+                            <div style="min-width: 0">
+                                <div style="display: flex; align-items: baseline; gap: 9px; margin-bottom: 3px">
+                                    <span style="font-weight: 500; font-size: 15px; color: #8aa0bd">theo</span>
+                                    <span style="font-size: 11px; color: #4a4a52">9:26</span>
+                                </div>
+                                <div style="line-height: 1.55; color: #d8d8de">i'm in. saturday works for me</div>
+                                <div style="display: flex; gap: 6px; margin-top: 7px">
+                                    <div
+                                        style="
+                                            display: flex;
+                                            align-items: center;
+                                            gap: 6px;
+                                            background: #15151a;
+                                            border: 1px solid #20202a;
+                                            border-radius: 11px;
+                                            padding: 3px 9px;
+                                            cursor: pointer;
+                                            font-size: 12.5px;
+                                            color: #b8b8c0;
+                                        "
+                                    >
+                                        <span>🔥</span><span style="color: #8a8a94">3</span>
+                                    </div>
+                                    <div
+                                        style="
+                                            display: flex;
+                                            align-items: center;
+                                            gap: 6px;
+                                            background: #15151a;
+                                            border: 1px solid #20202a;
+                                            border-radius: 11px;
+                                            padding: 3px 9px;
+                                            cursor: pointer;
+                                            font-size: 12.5px;
+                                            color: #b8b8c0;
+                                        "
+                                    >
+                                        <span>👍</span><span style="color: #8a8a94">2</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            style="display: flex; gap: 14px; padding: 10px 24px; transition: background 0.12s"
+                            style-hover="background:#0e0e12"
+                        >
+                            <div
+                                style="
+                                    width: 42px;
+                                    height: 42px;
+                                    flex: none;
+                                    border-radius: 14px;
+                                    background: #57664f;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    color: #eaf0e6;
+                                    font-size: 16px;
+                                    font-weight: 500;
+                                "
+                            >
+                                J
+                            </div>
+                            <div style="min-width: 0">
+                                <div style="display: flex; align-items: baseline; gap: 9px; margin-bottom: 3px">
+                                    <span style="font-weight: 500; font-size: 15px; color: #8fa888">jordan</span>
+                                    <span style="font-size: 11px; color: #4a4a52">9:31</span>
+                                </div>
+                                <div style="line-height: 1.55; color: #d8d8de">
+                                    saturday it is. i'll host — pulled together a quick plan
+                                </div>
+                                <div
+                                    style="
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 13px;
+                                        margin-top: 9px;
+                                        background: #101015;
+                                        border: 1px solid #1c1c22;
+                                        border-radius: 12px;
+                                        padding: 13px 15px;
+                                        width: 340px;
+                                        cursor: pointer;
+                                        transition: border-color 0.15s;
+                                    "
+                                    style-hover="border-color:#2a2a32"
+                                >
+                                    <div
+                                        style="
+                                            width: 40px;
+                                            height: 40px;
+                                            flex: none;
+                                            border-radius: 10px;
+                                            background: rgba(227, 93, 58, 0.12);
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                        "
+                                    >
+                                        <span class="ms" style="font-size: 22px; color: #e35d3a; font-variation-settings: 'wght' 300"
+                                            >description</span
+                                        >
+                                    </div>
+                                    <div style="min-width: 0">
+                                        <div
+                                            style="
+                                                font-size: 14px;
+                                                color: #e8e8ee;
+                                                font-weight: 500;
+                                                white-space: nowrap;
+                                                overflow: hidden;
+                                                text-overflow: ellipsis;
+                                            "
+                                        >
+                                            game-night-plan.pdf
+                                        </div>
+                                        <div style="font-size: 12px; color: #6a6a74; margin-top: 1px">240 KB · PDF</div>
+                                    </div>
+                                    <span
+                                        class="ms"
+                                        style="font-size: 20px; color: #5a5a64; margin-left: auto; font-variation-settings: 'wght' 250"
+                                        >download</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            style="display: flex; gap: 14px; padding: 10px 24px; transition: background 0.12s"
+                            style-hover="background:#0e0e12"
+                        >
+                            <div
+                                style="
+                                    width: 42px;
+                                    height: 42px;
+                                    flex: none;
+                                    border-radius: 14px;
+                                    background: #6e4f44;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    color: #f2e3dc;
+                                    font-size: 16px;
+                                    font-weight: 500;
+                                "
+                            >
+                                M
+                            </div>
+                            <div style="min-width: 0">
+                                <div style="display: flex; align-items: baseline; gap: 9px; margin-bottom: 3px">
+                                    <span style="font-weight: 500; font-size: 15px; color: #e35d3a">maya</span>
+                                    <span style="font-size: 11px; color: #4a4a52">9:33</span>
+                                </div>
+                                <div style="line-height: 1.55; color: #d8d8de">perfect. here's the board layout from last time</div>
+                                <div
+                                    style="
+                                        margin-top: 9px;
+                                        width: 320px;
+                                        height: 172px;
+                                        border-radius: 12px;
+                                        border: 1px solid #1c1c22;
+                                        background: repeating-linear-gradient(135deg, #101015, #101015 11px, #0d0d11 11px, #0d0d11 22px);
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        cursor: pointer;
+                                    "
+                                >
+                                    <span
+                                        style="
+                                            font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+                                            font-size: 11px;
+                                            color: #4a4a52;
+                                            letter-spacing: 0.04em;
+                                        "
+                                        >image · setup.png</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            style="display: flex; gap: 14px; padding: 10px 24px; transition: background 0.12s"
+                            style-hover="background:#0e0e12"
+                        >
+                            <div
+                                style="
+                                    width: 42px;
+                                    height: 42px;
+                                    flex: none;
+                                    border-radius: 14px;
+                                    background: #6e5566;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    color: #f0e3ee;
+                                    font-size: 16px;
+                                    font-weight: 500;
+                                "
+                            >
+                                S
+                            </div>
+                            <div style="min-width: 0">
+                                <div style="display: flex; align-items: baseline; gap: 9px; margin-bottom: 3px">
+                                    <span style="font-weight: 500; font-size: 15px; color: #b08aa6">sam</span>
+                                    <span style="font-size: 11px; color: #4a4a52">9:40</span>
+                                </div>
+                                <div style="line-height: 1.55; color: #d8d8de">jumping in voice, someone hop on</div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 10px; padding: 6px 24px 16px">
+                            <div style="display: flex; gap: 3px">
+                                <div
+                                    style="
+                                        width: 5px;
+                                        height: 5px;
+                                        border-radius: 50%;
+                                        background: #8a8a94;
+                                        animation: ember-typing 1.3s infinite;
+                                    "
+                                ></div>
+                                <div
+                                    style="
+                                        width: 5px;
+                                        height: 5px;
+                                        border-radius: 50%;
+                                        background: #8a8a94;
+                                        animation: ember-typing 1.3s infinite 0.2s;
+                                    "
+                                ></div>
+                                <div
+                                    style="
+                                        width: 5px;
+                                        height: 5px;
+                                        border-radius: 50%;
+                                        background: #8a8a94;
+                                        animation: ember-typing 1.3s infinite 0.4s;
+                                    "
+                                ></div>
+                            </div>
+                            <span style="font-size: 12.5px; color: #6a6a74"><span style="color: #8aa0bd">theo</span> is typing…</span>
+                        </div>
+                    </div>
+
+                    <div
+                        style="
+                            flex: none;
+                            margin: 0 18px 20px;
+                            display: flex;
+                            align-items: center;
+                            gap: 12px;
+                            background: #101015;
+                            border: 1px solid #20202a;
+                            border-radius: 14px;
+                            padding: 11px 14px;
+                            position: relative;
+                            z-index: 2;
+                        "
+                    >
+                        <div
+                            style="
+                                width: 30px;
+                                height: 30px;
+                                flex: none;
+                                border-radius: 9px;
+                                background: #16161b;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                cursor: pointer;
+                                color: #8a8a94;
+                                transition:
+                                    color 0.15s,
+                                    background 0.15s;
+                            "
+                            style-hover="color:#e35d3a;background:#1c1418"
+                        >
+                            <span class="ms" style="font-size: 20px; font-variation-settings: 'wght' 300">add</span>
+                        </div>
+                        <span style="flex: 1; font-size: 14.5px; color: #4a4a52">Message #general</span>
+                        <div style="display: flex; align-items: center; gap: 6px">
+                            <div
+                                style="
+                                    width: 30px;
+                                    height: 30px;
+                                    border-radius: 9px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    cursor: pointer;
+                                    color: #8a8a94;
+                                    transition: color 0.15s;
+                                "
+                                style-hover="color:#d8d8de"
+                            >
+                                <span class="ms" style="font-size: 19px; font-variation-settings: 'wght' 250">sentiment_satisfied</span>
+                            </div>
+                            <div
+                                style="
+                                    width: 30px;
+                                    height: 30px;
+                                    border-radius: 9px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    cursor: pointer;
+                                    color: #8a8a94;
+                                    transition: color 0.15s;
+                                "
+                                style-hover="color:#d8d8de"
+                            >
+                                <span class="ms" style="font-size: 19px; font-variation-settings: 'wght' 250">send</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= MEMBER LIST ================= -->
+                <sc-if value="{{ memberOpen }}" hint-placeholder-val="{{ true }}">
+                    <div
+                        style="
+                            width: 236px;
+                            flex: none;
+                            background: #0a0a0c;
+                            border-left: 1px solid #16161b;
+                            display: flex;
+                            flex-direction: column;
+                            z-index: 2;
+                        "
+                    >
+                        <div
+                            style="
+                                height: 56px;
+                                flex: none;
+                                display: flex;
+                                align-items: center;
+                                padding: 0 18px;
+                                border-bottom: 1px solid #16161b;
+                            "
+                        >
+                            <span
+                                style="font-size: 11px; font-weight: 500; color: #6a6a74; text-transform: uppercase; letter-spacing: 0.1em"
+                                >Members — 6</span
+                            >
+                        </div>
+                        <div style="flex: 1; overflow-y: auto; padding: 16px 10px">
+                            <div
+                                style="
+                                    font-size: 11px;
+                                    font-weight: 500;
+                                    color: #6a6a74;
+                                    text-transform: uppercase;
+                                    letter-spacing: 0.1em;
+                                    padding: 0 8px 8px;
+                                "
+                            >
+                                Online — 4
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 1px">
+                                <div
+                                    style="
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 11px;
+                                        padding: 7px 8px;
+                                        border-radius: 8px;
+                                        cursor: pointer;
+                                        transition: background 0.15s;
+                                    "
+                                    style-hover="background:#101015"
+                                >
+                                    <div style="position: relative; flex: none">
+                                        <div
+                                            style="
+                                                width: 32px;
+                                                height: 32px;
+                                                border-radius: 10px;
+                                                background: #6e4f44;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;
+                                                color: #f2e3dc;
+                                                font-size: 13px;
+                                                font-weight: 500;
+                                            "
+                                        >
+                                            M
+                                        </div>
+                                        <div
+                                            style="
+                                                position: absolute;
+                                                right: -2px;
+                                                bottom: -2px;
+                                                width: 11px;
+                                                height: 11px;
+                                                border-radius: 50%;
+                                                background: #8fd9bf;
+                                                border: 2.5px solid #0a0a0c;
+                                            "
+                                        ></div>
+                                    </div>
+                                    <div style="min-width: 0">
+                                        <div style="font-size: 13.5px; font-weight: 500; color: #e35d3a; line-height: 1.2">maya</div>
+                                        <div style="font-size: 11px; color: #8fd9bf; line-height: 1.3; margin-top: 1px">
+                                            In voice · Lounge
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    style="
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 11px;
+                                        padding: 7px 8px;
+                                        border-radius: 8px;
+                                        cursor: pointer;
+                                        transition: background 0.15s;
+                                    "
+                                    style-hover="background:#101015"
+                                >
+                                    <div style="position: relative; flex: none">
+                                        <div
+                                            style="
+                                                width: 32px;
+                                                height: 32px;
+                                                border-radius: 10px;
+                                                background: #4f5e72;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;
+                                                color: #e3e8f0;
+                                                font-size: 13px;
+                                                font-weight: 500;
+                                            "
+                                        >
+                                            T
+                                        </div>
+                                        <div
+                                            style="
+                                                position: absolute;
+                                                right: -2px;
+                                                bottom: -2px;
+                                                width: 11px;
+                                                height: 11px;
+                                                border-radius: 50%;
+                                                background: #8fd9bf;
+                                                border: 2.5px solid #0a0a0c;
+                                            "
+                                        ></div>
+                                    </div>
+                                    <div style="min-width: 0">
+                                        <div style="font-size: 13.5px; font-weight: 500; color: #8aa0bd; line-height: 1.2">theo</div>
+                                        <div style="font-size: 11px; color: #8fd9bf; line-height: 1.3; margin-top: 1px">
+                                            In voice · muted
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    style="
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 11px;
+                                        padding: 7px 8px;
+                                        border-radius: 8px;
+                                        cursor: pointer;
+                                        transition: background 0.15s;
+                                    "
+                                    style-hover="background:#101015"
+                                >
+                                    <div style="position: relative; flex: none">
+                                        <div
+                                            style="
+                                                width: 32px;
+                                                height: 32px;
+                                                border-radius: 10px;
+                                                background: #57664f;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;
+                                                color: #eaf0e6;
+                                                font-size: 13px;
+                                                font-weight: 500;
+                                            "
+                                        >
+                                            J
+                                        </div>
+                                        <div
+                                            style="
+                                                position: absolute;
+                                                right: -2px;
+                                                bottom: -2px;
+                                                width: 11px;
+                                                height: 11px;
+                                                border-radius: 50%;
+                                                background: #5fa87a;
+                                                border: 2.5px solid #0a0a0c;
+                                            "
+                                        ></div>
+                                    </div>
+                                    <div style="min-width: 0">
+                                        <div style="font-size: 13.5px; font-weight: 500; color: #8fa888; line-height: 1.2">jordan</div>
+                                        <div style="font-size: 11px; color: #6a6a74; line-height: 1.3; margin-top: 1px">online</div>
+                                    </div>
+                                </div>
+                                <div
+                                    style="
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 11px;
+                                        padding: 7px 8px;
+                                        border-radius: 8px;
+                                        cursor: pointer;
+                                        transition: background 0.15s;
+                                    "
+                                    style-hover="background:#101015"
+                                >
+                                    <div style="position: relative; flex: none">
+                                        <div
+                                            style="
+                                                width: 32px;
+                                                height: 32px;
+                                                border-radius: 10px;
+                                                background: #6e5566;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;
+                                                color: #f0e3ee;
+                                                font-size: 13px;
+                                                font-weight: 500;
+                                            "
+                                        >
+                                            S
+                                        </div>
+                                        <div
+                                            style="
+                                                position: absolute;
+                                                right: -2px;
+                                                bottom: -2px;
+                                                width: 11px;
+                                                height: 11px;
+                                                border-radius: 50%;
+                                                background: #5fa87a;
+                                                border: 2.5px solid #0a0a0c;
+                                            "
+                                        ></div>
+                                    </div>
+                                    <div style="min-width: 0">
+                                        <div style="font-size: 13.5px; font-weight: 500; color: #b08aa6; line-height: 1.2">sam</div>
+                                        <div style="font-size: 11px; color: #6a6a74; line-height: 1.3; margin-top: 1px">
+                                            playing Hollow Knight
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                style="
+                                    font-size: 11px;
+                                    font-weight: 500;
+                                    color: #6a6a74;
+                                    text-transform: uppercase;
+                                    letter-spacing: 0.1em;
+                                    padding: 18px 8px 8px;
+                                "
+                            >
+                                Offline — 2
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 1px; opacity: 0.45">
+                                <div
+                                    style="
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 11px;
+                                        padding: 7px 8px;
+                                        border-radius: 8px;
+                                        cursor: pointer;
+                                        transition: opacity 0.15s;
+                                    "
+                                    style-hover="opacity:.8"
+                                >
+                                    <div
+                                        style="
+                                            width: 32px;
+                                            height: 32px;
+                                            flex: none;
+                                            border-radius: 10px;
+                                            background: #3a3f3a;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                            color: #b8bcb6;
+                                            font-size: 13px;
+                                            font-weight: 500;
+                                        "
+                                    >
+                                        A
+                                    </div>
+                                    <div style="font-size: 13.5px; font-weight: 500; color: #9a9aa2">alex</div>
+                                </div>
+                                <div
+                                    style="
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 11px;
+                                        padding: 7px 8px;
+                                        border-radius: 8px;
+                                        cursor: pointer;
+                                        transition: opacity 0.15s;
+                                    "
+                                    style-hover="opacity:.8"
+                                >
+                                    <div
+                                        style="
+                                            width: 32px;
+                                            height: 32px;
+                                            flex: none;
+                                            border-radius: 10px;
+                                            background: #393c42;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                            color: #b6bac0;
+                                            font-size: 13px;
+                                            font-weight: 500;
+                                        "
+                                    >
+                                        R
+                                    </div>
+                                    <div style="font-size: 13.5px; font-weight: 500; color: #9a9aa2">robin</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </sc-if>
+
+                <div
+                    style="
+                        position: absolute;
+                        inset: 0;
+                        pointer-events: none;
+                        z-index: 5;
+                        box-shadow: inset 0 0 180px 40px rgba(0, 0, 0, 0.45);
+                    "
+                ></div>
+            </div>
+        </x-dc>
+        <script type="text/x-dc" data-dc-script>
+            class Component extends DCLogic {
+              state = { textOpen: true, voiceOpen: true, memberOpen: true };
+              renderVals() {
+                const { textOpen, voiceOpen, memberOpen } = this.state;
+                return {
+                  textOpen, voiceOpen, memberOpen,
+                  textRot: textOpen ? 'rotate(0deg)' : 'rotate(-90deg)',
+                  voiceRot: voiceOpen ? 'rotate(0deg)' : 'rotate(-90deg)',
+                  toggleText: () => this.setState(s => ({ textOpen: !s.textOpen })),
+                  toggleVoice: () => this.setState(s => ({ voiceOpen: !s.voiceOpen })),
+                  toggleMembers: () => this.setState(s => ({ memberOpen: !s.memberOpen })),
+                  membersIconColor: memberOpen ? '#e35d3a' : '#8a8a94',
+                  membersIconBg: memberOpen ? 'rgba(227,93,58,0.12)' : 'transparent',
+                };
+              }
+            }
+        </script>
+    </body>
+</html>
