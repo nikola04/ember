@@ -1,4 +1,4 @@
-import { pgTable, text, integer, timestamp, uuid, index } from 'drizzle-orm/pg-core';
+import { pgTable, text, integer, timestamp, uuid, index, unique } from 'drizzle-orm/pg-core';
 import { servers } from './servers';
 import { channelGroups } from './channel.groups';
 
@@ -27,7 +27,11 @@ export const channels = pgTable(
 
         createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
     },
-    (t) => [index('channels_server_idx').on(t.serverId), index('channels_group_idx').on(t.groupId)]
+    (t) => [
+        index('channels_server_idx').on(t.serverId),
+        index('channels_group_idx').on(t.groupId),
+        unique('unique_server_channel_type_name').on(t.serverId, t.name, t.type),
+    ]
 );
 
 export type Channel = typeof channels.$inferSelect;

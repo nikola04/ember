@@ -22,6 +22,13 @@
       "when": 1782200752898,
       "tag": "0002_noisy_valeria_richards",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1782225002881,
+      "tag": "0003_windy_the_fallen",
+      "breakpoints": true
     }
   ]
 }

@@ -15,7 +15,7 @@ export function ProfileButton() {
     return (
         <div className="relative flex flex-col items-center">
             {open && (
-                <div className="absolute bottom-[54px] left-0 z-40 flex w-[180px] flex-col rounded-[10px] border border-line-2 bg-lift p-1 shadow-xl">
+                <div className="absolute bottom-13.5 left-0 z-40 flex w-[180px] flex-col rounded-[10px] border border-line-2 bg-lift p-1 shadow-xl">
                     <div className="px-3 py-2">
                         <div className="text-[13.5px] font-medium text-fg-primary">{user.displayName}</div>
                         <div className="truncate text-[11.5px] text-fg-muted">@{user.username}</div>

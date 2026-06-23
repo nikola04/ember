@@ -1,0 +1,1 @@
+ALTER TABLE "channels" ADD CONSTRAINT "unique_server_channel_type_name" UNIQUE("serverId","name","type");

@@ -1,26 +1,45 @@
 import type { Database } from '@ember/db';
 import type { ServerRepository } from './repository/servers.repo';
 import { ConflictError, ForbiddenError, NotFoundError } from '../../core/errors';
-import type { CreateServerRequest, ServerDetailsDTO, ServerDTO, ServerMemberDTO, UpdateServerRequest } from '@ember/protocol';
+import type { ChannelDTO, CreateServerRequest, ServerDetailsDTO, ServerDTO, ServerMemberDTO, UpdateServerRequest } from '@ember/protocol';
 import { toMemberDTO, toRoleDTO, toServerDTO } from './server.mapper';
 import type { MemberRepository } from './repository/members.repo';
 import type { RoleRepository } from './repository/roles.repo';
 import { env } from '../../core/env';
+import { DEFAULT_EVERYONE_PERMISSIONS, Permissions } from '../../core/permissions';
+import type { PermissionService } from '../permissions/permission.service';
+import type { ChannelRepository } from '../channels/repository/channels.repo';
+import { toChannelDTO } from '../channels/channel.mapper';
 
 export const createServerService = ({
     db,
+    permissionService,
     serverRepository,
+    channelRepository,
     memberRepository,
     roleRepository,
 }: {
     db: Database;
+    permissionService: PermissionService;
     serverRepository: ServerRepository;
+    channelRepository: ChannelRepository;
     memberRepository: MemberRepository;
     roleRepository: RoleRepository;
 }) => ({
     getMyServers: async (userId: string): Promise<ServerDTO[]> => {
         const servers = await memberRepository.findServersByUser(db, userId);
         return servers.map(toServerDTO);
+    },
+
+    listChannels: async (userId: string, serverId: string): Promise<ChannelDTO[]> => {
+        const server = await serverRepository.findById(db, serverId);
+        if (!server) throw new NotFoundError('Server not found');
+
+        const requester = await memberRepository.findByServerAndUser(db, serverId, userId);
+        if (!requester) throw new ForbiddenError('Not a member of this server');
+
+        const channels = await channelRepository.findByServerId(db, serverId);
+        return channels.map(toChannelDTO);
     },
 
     listMembers: async (userId: string, serverId: string): Promise<ServerMemberDTO[]> => {
@@ -91,7 +110,7 @@ export const createServerService = ({
                 serverId: created.id,
                 name: '@everyone',
                 isDefault: true,
-                permissions: 0n,
+                permissions: DEFAULT_EVERYONE_PERMISSIONS,
                 position: 0,
             });
 
@@ -104,8 +123,11 @@ export const createServerService = ({
         const server = await serverRepository.findById(db, serverId);
         if (!server) throw new NotFoundError('Server not found');
 
-        // todo: check permissions here
-        if (server.ownerId !== userId) throw new ForbiddenError('Not allowed to manage this server');
+        const hasPerms = await permissionService.hasPermissions(
+            { userId, serverId, isOwner: server.ownerId === userId },
+            Permissions.MANAGE_SERVER
+        );
+        if (!hasPerms) throw new ForbiddenError('Not allowed to manage this server');
 
         const updated = await serverRepository.updateServer(db, serverId, {
             name: data.name,

@@ -12,6 +12,10 @@ export const createChannelRepo = () => ({
         return channel ?? null;
     },
 
+    findByServerId: async (db: Executor, serverId: string): Promise<Channel[]> => {
+        return await db.select().from(channels).where(eq(channels.serverId, serverId));
+    },
+
     deleteById: async (db: Executor, id: string): Promise<boolean> => {
         const deleted = await db.delete(channels).where(eq(channels.id, id)).returning({ id: channels.id });
         return deleted.length > 0;

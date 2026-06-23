@@ -1,16 +1,20 @@
-import type { Database, InsertChannel } from '@ember/db';
+import { isUniqueViolation, uniqueViolationField, type Database, type InsertChannel } from '@ember/db';
 import type { ChannelDTO, CreateChannelRequest } from '@ember/protocol';
-import { ForbiddenError, NotFoundError } from '../../core/errors';
+import { ConflictError, ForbiddenError, NotFoundError } from '../../core/errors';
 import type { ServerRepository } from '../servers/repository/servers.repo';
 import type { ChannelRepository } from './repository/channels.repo';
 import { toChannelDTO } from './channel.mapper';
+import type { PermissionService } from '../permissions/permission.service';
+import { Permissions } from '../../core/permissions';
 
 export const createChannelService = ({
     db,
+    permissionService,
     channelRepository,
     serverRepository,
 }: {
     db: Database;
+    permissionService: PermissionService;
     channelRepository: ChannelRepository;
     serverRepository: ServerRepository;
 }) => ({
@@ -18,8 +22,11 @@ export const createChannelService = ({
         const server = await serverRepository.findById(db, serverId);
         if (!server) throw new NotFoundError('Server not found');
 
-        // todo: check permissions here
-        if (server.ownerId !== userId) throw new ForbiddenError('Not allowed to manage this server');
+        const hasPerms = await permissionService.hasPermissions(
+            { serverId, userId, isOwner: server.ownerId === userId },
+            Permissions.MANAGE_CHANNELS
+        );
+        if (!hasPerms) throw new ForbiddenError('Not allowed to manage channels in this server');
 
         const insert: InsertChannel = {
             serverId,
@@ -33,7 +40,10 @@ export const createChannelService = ({
             userLimit: data.type === 'voice' ? data.userLimit : undefined,
         };
 
-        const created = await channelRepository.createChannel(db, insert);
+        const created = await channelRepository.createChannel(db, insert).catch((e) => {
+            if (isUniqueViolation(e) && uniqueViolationField(e, 'name')) throw new ConflictError('channel with that name already exists');
+            throw e;
+        });
         return toChannelDTO(created);
     },
 
@@ -44,8 +54,11 @@ export const createChannelService = ({
         const server = await serverRepository.findById(db, channel.serverId);
         if (!server) throw new NotFoundError('Server not found');
 
-        // todo: check permissions here
-        if (server.ownerId !== userId) throw new ForbiddenError('Not allowed to manage this server');
+        const hasPerms = await permissionService.hasPermissions(
+            { serverId: server.id, userId, isOwner: server.ownerId === userId },
+            Permissions.MANAGE_CHANNELS
+        );
+        if (!hasPerms) throw new ForbiddenError('Not allowed to manage channels in this server');
 
         const deleted = await channelRepository.deleteById(db, channelId);
         if (!deleted) throw new NotFoundError('Channel not found');

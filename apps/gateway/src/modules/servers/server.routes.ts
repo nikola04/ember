@@ -28,6 +28,11 @@ export const createServerRoutes = (serverService: ServerService, channelService:
             detail: { summary: 'Get server by id' },
         })
 
+        .get('/:id/channels', ({ user, params }) => serverService.listChannels(user.id, params.id), {
+            response: { 200: z.array(channelDTO) },
+            detail: { summary: 'List server channels' },
+        })
+
         .get('/:id/members', ({ user, params }) => serverService.listMembers(user.id, params.id), {
             response: { 200: z.array(serverMemberDTO) },
             detail: { summary: 'List server members' },
