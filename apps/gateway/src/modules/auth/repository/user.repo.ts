@@ -1,6 +1,4 @@
-import { users, type Executor } from '@ember/db';
-import type { InsertUser, User } from '@ember/db/src/schema/users';
-import { eq } from 'drizzle-orm';
+import { eq, users, type Executor, type InsertUser, type User } from '@ember/db';
 
 export const createUserRepo = () => ({
     createUser: async (db: Executor, data: InsertUser): Promise<User> => {

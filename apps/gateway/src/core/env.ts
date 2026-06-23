@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from '@ember/protocol';
 
 const EnvSchema = z.object({
     // --- runtime ---
@@ -6,10 +6,12 @@ const EnvSchema = z.object({
     VERSION: z.string().default(process.env.npm_package_version ?? '0.0.0'),
     PORT: z.coerce.number().int().positive().default(3000),
     HOSTNAME: z.string().default('0.0.0.0'),
-    // --- auth ---
+    // --- jwt ---
     JWT_SECRET: z.string().min(24).max(512),
+    JWT_ACCESS_TTL: z.coerce.number().positive(),
+    JWT_REFRESH_TTL: z.coerce.number().positive(),
     // --- database ---
-    DATABASE_URL: z.string().url(),
+    DATABASE_URL: z.url(),
     // --- logging ---
     LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).default('info'),
 });

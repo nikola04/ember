@@ -3,8 +3,9 @@ import { errorPlugin } from './plugins/error.plugin';
 import { authModule } from './modules/auth';
 import { env } from './core/env';
 import openapi from '@elysiajs/openapi';
+import cors from '@elysiajs/cors';
 
-export const app = new Elysia().use(errorPlugin).use(authModule.plugin);
+export const app = new Elysia().use(cors()).use(errorPlugin).use(authModule.plugin);
 
 if (env.NODE_ENV !== 'production') {
     app.use(

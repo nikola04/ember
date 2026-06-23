@@ -1,6 +1,4 @@
-import { sessions, type Executor } from '@ember/db';
-import type { InsertSession, Session } from '@ember/db/src/schema/sessions';
-import { eq } from 'drizzle-orm';
+import { eq, sessions, type Executor, type InsertSession, type Session } from '@ember/db';
 
 export const createSessionRepo = () => ({
     createSession: async (db: Executor, data: InsertSession): Promise<Session> => {

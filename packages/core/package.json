@@ -5,8 +5,7 @@
     "main": "src/index.ts",
     "dependencies": {
         "@ember/db": "workspace:*",
-        "@ember/protocol": "workspace:*",
-        "zod": "^3.23.0"
+        "@ember/protocol": "workspace:*"
     },
     "devDependencies": {
         "@types/bun": "latest",

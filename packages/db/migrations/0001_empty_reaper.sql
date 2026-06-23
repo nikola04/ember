@@ -1,0 +1,2 @@
+ALTER TABLE "accounts" ADD CONSTRAINT "accounts_user_provider_unique" UNIQUE("userId","provider");--> statement-breakpoint
+ALTER TABLE "accounts" ADD CONSTRAINT "accounts_provider_account_unique" UNIQUE("provider","providerAccountId");

@@ -1,1 +1,2 @@
-export * from './auth'
+export { z } from 'zod';
+export * from './auth';

@@ -1,5 +1,5 @@
-import type { User } from '@ember/db/src/schema/users';
-import type { AuthUserDTO } from '../../../../../packages/protocol/src';
+import type { User } from '@ember/db';
+import type { AuthUserDTO } from '@ember/protocol';
 
 export const toAuthUserDTO = (user: User): AuthUserDTO => ({
     id: user.id,

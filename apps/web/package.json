@@ -10,8 +10,7 @@
         "@ember/protocol": "workspace:*",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
-        "livekit-client": "^2.7.0",
-        "zod": "^3.23.0"
+        "livekit-client": "^2.7.0"
     },
     "devDependencies": {
         "@types/bun": "latest",

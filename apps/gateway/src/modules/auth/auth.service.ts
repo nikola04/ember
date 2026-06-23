@@ -8,6 +8,7 @@ import { signJwt } from '../../core/jwt';
 import type { TokenPayload } from './auth.schemas';
 import { randomBytes } from 'node:crypto';
 import type { SessionRepository } from './repository/session.repo';
+import { env } from '../../core/env';
 
 interface RegisterUser {
     username: string;
@@ -36,6 +37,8 @@ export const createAuthService = ({
     accountRepository: AccountRepository;
     sessionRepository: SessionRepository;
 }) => {
+    const hashRefreshToken = (token: string) => Bun.CryptoHasher.hash('sha3-384', token, 'hex');
+
     const register = async (data: { user: RegisterUser; account: RegisterAccount }): Promise<{ user: User }> => {
         try {
             return await db.transaction(async (tx) => {
@@ -63,11 +66,12 @@ export const createAuthService = ({
 
     const login = async (db: Executor, data: { userId: string }) => {
         const payload = { userId: data.userId };
-        const accessToken = await signJwt<TokenPayload>({ payload, expiry: '10m' });
+        const accessToken = await signJwt<TokenPayload>({ payload, expiry: `${env.JWT_ACCESS_TTL}s` });
 
         const refreshToken = randomBytes(32).toString('hex');
         const refreshExpiry = new Date(Date.now() + 7 * 86400_000);
-        await sessionRepository.createSession(db, { userId: data.userId, token: refreshToken, expiresAt: refreshExpiry });
+        const hashedToken = hashRefreshToken(refreshToken);
+        await sessionRepository.createSession(db, { userId: data.userId, token: hashedToken, expiresAt: refreshExpiry });
 
         return { access_token: accessToken, refresh_token: refreshToken };
     };
@@ -104,7 +108,8 @@ export const createAuthService = ({
         },
         refresh: async (data: { refresh_token: string }) => {
             return await db.transaction(async (tx) => {
-                const session = await sessionRepository.findSessionByToken(tx, data.refresh_token);
+                const hashedToken = hashRefreshToken(data.refresh_token);
+                const session = await sessionRepository.findSessionByToken(tx, hashedToken);
                 if (!session) throw new UnauthorizedError('invalid refresh token');
                 if (session.expiresAt < new Date()) throw new UnauthorizedError('refresh token expired');
 
