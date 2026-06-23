@@ -10,6 +10,10 @@ export const createUserRepo = () => ({
         const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1);
         return user ?? null;
     },
+    findById: async (db: Executor, id: string): Promise<User | null> => {
+        const [user] = await db.select().from(users).where(eq(users.id, id)).limit(1);
+        return user ?? null;
+    },
 });
 
 export type UserRepository = ReturnType<typeof createUserRepo>;

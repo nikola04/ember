@@ -13,7 +13,9 @@ const EnvSchema = z.object({
     // --- database ---
     DATABASE_URL: z.url(),
     // --- logging ---
-    LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).default('info'),
+    LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).default('debug'),
+    // --- limits ---
+    MAX_USER_SERVERS: z.coerce.number().int().positive().default(100),
 });
 
 function loadEnv() {

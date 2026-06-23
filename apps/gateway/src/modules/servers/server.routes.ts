@@ -1,7 +1,16 @@
 import Elysia from 'elysia';
 import type { ServerService } from './server.service';
 import { authGuard } from '../../plugins/auth.plugin';
-import { createChannelRequest, createServerRequest, updateServerRequest } from '@ember/protocol';
+import {
+    channelDTO,
+    createChannelRequest,
+    createServerRequest,
+    serverDetailsDTO,
+    serverDTO,
+    serverMemberDTO,
+    updateServerRequest,
+    z,
+} from '@ember/protocol';
 import type { ChannelService } from '../channels/channel.service';
 
 export const createServerRoutes = (serverService: ServerService, channelService: ChannelService) =>
@@ -9,15 +18,30 @@ export const createServerRoutes = (serverService: ServerService, channelService:
         .use(authGuard)
         .guard({ auth: true })
 
-        .get('/@me', ({ user }) => serverService.getMyServers(user.id), { detail: { summary: 'List my servers' } })
+        .get('/@me', ({ user }) => serverService.getMyServers(user.id), {
+            response: { 200: z.array(serverDTO) },
+            detail: { summary: 'List my servers' },
+        })
+
+        .get('/:id', ({ user, params }) => serverService.getServerById(user.id, params.id), {
+            response: { 200: serverDetailsDTO },
+            detail: { summary: 'Get server by id' },
+        })
+
+        .get('/:id/members', ({ user, params }) => serverService.listMembers(user.id, params.id), {
+            response: { 200: z.array(serverMemberDTO) },
+            detail: { summary: 'List server members' },
+        })
 
         .post('/', ({ user, body }) => serverService.createServer(user.id, { server: body }), {
             body: createServerRequest,
+            response: { 200: serverDTO },
             detail: { summary: 'Create server' },
         })
 
         .patch('/:id', ({ user, params, body }) => serverService.updateServer(user.id, params.id, body), {
             body: updateServerRequest,
+            response: { 200: serverDTO },
             detail: { summary: 'Update server' },
         })
 
@@ -33,5 +57,6 @@ export const createServerRoutes = (serverService: ServerService, channelService:
         // channels
         .post('/:serverId/channels', ({ user, params, body }) => channelService.createChannel(user.id, params.serverId, body), {
             body: createChannelRequest,
+            response: { 200: channelDTO },
             detail: { summary: 'Create channel' },
         });
