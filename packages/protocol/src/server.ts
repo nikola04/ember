@@ -51,7 +51,6 @@ export type MemberDTO = z.infer<typeof memberDTO>;
 
 export const serverDetailsDTO = z.union([
     serverDTO.extend({
-        member: memberDTO,
         roles: z.array(roleDTO),
     }),
     serverDTO,
@@ -62,3 +61,8 @@ export const serverMemberDTO = memberDTO.extend({
     user: publicUserDTO,
 });
 export type ServerMemberDTO = z.infer<typeof serverMemberDTO>;
+
+export const serverMembershipDTO = serverMemberDTO.extend({
+    permissions: z.string(), // bigint serialized as string
+});
+export type ServerMembershipDTO = z.infer<typeof serverMembershipDTO>;

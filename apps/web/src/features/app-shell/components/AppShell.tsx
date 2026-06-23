@@ -8,10 +8,7 @@ export function AppShell() {
             <main className="relative flex min-w-0 flex-1 flex-col">
                 <Outlet />
             </main>
-            <div
-                className="pointer-events-none absolute inset-0 z-50"
-                style={{ boxShadow: 'inset 0 0 180px 40px rgba(0,0,0,.45)' }}
-            />
+            <div className="pointer-events-none absolute inset-0 z-50" style={{ boxShadow: 'inset 0 0 180px 40px rgba(0,0,0,.45)' }} />
         </div>
     );
 }

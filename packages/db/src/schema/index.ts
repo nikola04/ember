@@ -5,5 +5,6 @@ export * from './servers';
 export * from './assets';
 export * from './server.members';
 export * from './server.roles';
+export * from './server.invites';
 export * from './channels';
 export * from './channel.groups';

@@ -28,6 +28,23 @@ export const createMemberRepo = () => ({
         return member ?? null;
     },
 
+    findWithUserByServerAndUser: async (db: Executor, serverId: string, userId: string) => {
+        const [row] = await db
+            .select({
+                member: serverMembers,
+                user: {
+                    id: users.id,
+                    username: users.username,
+                    displayName: users.displayName,
+                },
+            })
+            .from(serverMembers)
+            .innerJoin(users, eq(serverMembers.userId, users.id))
+            .where(and(eq(serverMembers.serverId, serverId), eq(serverMembers.userId, userId)))
+            .limit(1);
+        return row ?? null;
+    },
+
     countByUser: async (db: Executor, userId: string): Promise<number> => {
         const [row] = await db.select({ count: count() }).from(serverMembers).where(eq(serverMembers.userId, userId));
         return row?.count ?? 0;

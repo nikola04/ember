@@ -1,12 +1,20 @@
 import type { Database } from '@ember/db';
 import type { ServerRepository } from './repository/servers.repo';
 import { ConflictError, ForbiddenError, NotFoundError } from '../../core/errors';
-import type { ChannelDTO, CreateServerRequest, ServerDetailsDTO, ServerDTO, ServerMemberDTO, UpdateServerRequest } from '@ember/protocol';
+import type {
+    ChannelDTO,
+    CreateServerRequest,
+    ServerDetailsDTO,
+    ServerDTO,
+    ServerMemberDTO,
+    ServerMembershipDTO,
+    UpdateServerRequest,
+} from '@ember/protocol';
 import { toMemberDTO, toRoleDTO, toServerDTO } from './server.mapper';
 import type { MemberRepository } from './repository/members.repo';
 import type { RoleRepository } from './repository/roles.repo';
 import { env } from '../../core/env';
-import { DEFAULT_EVERYONE_PERMISSIONS, Permissions } from '../../core/permissions';
+import { computePermissions, DEFAULT_EVERYONE_PERMISSIONS, Permissions } from '../../core/permissions';
 import type { PermissionService } from '../permissions/permission.service';
 import type { ChannelRepository } from '../channels/repository/channels.repo';
 import { toChannelDTO } from '../channels/channel.mapper';
@@ -74,15 +82,51 @@ export const createServerService = ({
         const member = await memberRepository.findByServerAndUser(db, serverId, userId);
         if (!member) return toServerDTO(server);
 
-        const [roles, roleIds] = await Promise.all([
-            roleRepository.findByServer(db, serverId),
-            memberRepository.findRoleIdsByMember(db, member.id),
-        ]);
-
+        const roles = await roleRepository.findByServer(db, serverId);
         return {
             ...toServerDTO(server),
-            member: toMemberDTO(member, roleIds),
             roles: roles.map(toRoleDTO),
+        };
+    },
+
+    getMyMembership: async (userId: string, serverId: string): Promise<ServerMembershipDTO> => {
+        const server = await serverRepository.findById(db, serverId);
+        if (!server) throw new NotFoundError('Server not found');
+
+        const row = await memberRepository.findWithUserByServerAndUser(db, serverId, userId);
+        if (!row) throw new NotFoundError('Membership not found');
+
+        const isOwner = server.ownerId === userId;
+        const [defaultRole, memberRoles] = await Promise.all([
+            roleRepository.findServerDefaultRole(db, serverId),
+            roleRepository.findMemberRoles(db, row.member.id),
+        ]);
+        if (!defaultRole) throw new NotFoundError('Server default role missing');
+
+        const permissions = computePermissions({ isOwner, defaultRole, memberRoles });
+
+        return {
+            ...toMemberDTO(
+                row.member,
+                memberRoles.map((r) => r.id)
+            ),
+            user: row.user,
+            permissions: permissions.toString(),
+        };
+    },
+
+    getMember: async (userId: string, serverId: string, targetUserId: string): Promise<ServerMemberDTO> => {
+        const requester = await memberRepository.findByServerAndUser(db, serverId, userId);
+        if (!requester) throw new ForbiddenError('Not a member of this server');
+
+        const row = await memberRepository.findWithUserByServerAndUser(db, serverId, targetUserId);
+        if (!row) throw new NotFoundError('Member not found');
+
+        const roleIds = await memberRepository.findRoleIdsByMember(db, row.member.id);
+
+        return {
+            ...toMemberDTO(row.member, roleIds),
+            user: row.user,
         };
     },
 
@@ -119,6 +163,7 @@ export const createServerService = ({
 
         return toServerDTO(server);
     },
+
     updateServer: async (userId: string, serverId: string, data: UpdateServerRequest): Promise<ServerDTO> => {
         const server = await serverRepository.findById(db, serverId);
         if (!server) throw new NotFoundError('Server not found');
@@ -139,6 +184,7 @@ export const createServerService = ({
 
         return toServerDTO(updated);
     },
+
     deleteServer: async (userId: string, serverId: string) => {
         const deleted = await serverRepository.deleteUserServer(db, userId, serverId);
         if (!deleted) throw new NotFoundError('failed or server not found');
