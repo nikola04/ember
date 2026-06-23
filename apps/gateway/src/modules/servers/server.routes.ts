@@ -1,9 +1,10 @@
 import Elysia from 'elysia';
 import type { ServerService } from './server.service';
 import { authGuard } from '../../plugins/auth.plugin';
-import { createServerRequest, updateServerRequest } from '@ember/protocol';
+import { createChannelRequest, createServerRequest, updateServerRequest } from '@ember/protocol';
+import type { ChannelService } from '../channels/channel.service';
 
-export const createServerRoutes = (serverService: ServerService) =>
+export const createServerRoutes = (serverService: ServerService, channelService: ChannelService) =>
     new Elysia({ prefix: '/servers', detail: { tags: ['Server'] } })
         .use(authGuard)
         .guard({ auth: true })
@@ -27,4 +28,10 @@ export const createServerRoutes = (serverService: ServerService) =>
                 return status(204);
             },
             { detail: { summary: 'Delete server' } }
-        );
+        )
+
+        // channels
+        .post('/:serverId/channels', ({ user, params, body }) => channelService.createChannel(user.id, params.serverId, body), {
+            body: createChannelRequest,
+            detail: { summary: 'Create channel' },
+        });

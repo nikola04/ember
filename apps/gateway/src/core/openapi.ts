@@ -1,0 +1,43 @@
+import openapi from '@elysiajs/openapi';
+import { env } from './env';
+import * as z from 'zod';
+
+export const openapiPlugin = openapi({
+    specPath: '/openapi.json',
+    path: '/swagger',
+    scalar: {
+        showDeveloperTools: 'never',
+        layout: 'modern',
+        defaultOpenAllTags: true,
+    },
+    mapJsonSchema: {
+        zod: z.toJSONSchema,
+    },
+    documentation: {
+        info: {
+            title: 'Ember API Documentation',
+            version: env.VERSION,
+            contact: {
+                name: 'Nikola Nedeljković',
+                url: 'https://github.com/nikola04',
+                email: 'nikolanedeljkovicc@icloud.com',
+            },
+        },
+        components: {
+            securitySchemes: {
+                JwtAuth: {
+                    type: 'http',
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT',
+                    description: 'Standard Authorization header: Bearer <token>',
+                },
+                CookieAuth: {
+                    type: 'apiKey',
+                    in: 'cookie',
+                    name: 'access_token',
+                    description: 'Authentication cookie: access_token=<token>',
+                },
+            },
+        },
+    },
+});
