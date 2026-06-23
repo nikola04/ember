@@ -1,8 +1,20 @@
 import type { Database } from '@ember/db';
-import { computePermissions, hasPermission, type PermissionBit } from '../../core/permissions';
+import { ALL_PERMISSIONS, computePermissions, hasPermission, type PermissionBit } from '../../core/permissions';
 import type { MemberRepository } from '../servers/repository/members.repo';
 import type { RoleRepository } from '../servers/repository/roles.repo';
 import { ForbiddenError } from '../../core/errors';
+
+type Context = { userId: string; serverId: string; isOwner: boolean };
+
+export interface MemberContext {
+    permissions: bigint;
+    highestRolePosition: number;
+}
+
+const OWNER_CONTEXT: MemberContext = {
+    permissions: ALL_PERMISSIONS,
+    highestRolePosition: Number.POSITIVE_INFINITY,
+};
 
 export const createPermissionService = ({
     db,
@@ -12,12 +24,9 @@ export const createPermissionService = ({
     db: Database;
     memberRepository: MemberRepository;
     roleRepository: RoleRepository;
-}) => ({
-    hasPermissions: async (
-        { userId, serverId, isOwner }: { userId: string; serverId: string; isOwner: boolean },
-        ...permissions: PermissionBit[]
-    ): Promise<boolean> => {
-        if (isOwner) return true;
+}) => {
+    const getMemberContext = async ({ userId, serverId, isOwner }: Context): Promise<MemberContext> => {
+        if (isOwner) return OWNER_CONTEXT;
 
         const member = await memberRepository.findByServerAndUser(db, serverId, userId);
         if (!member) throw new ForbiddenError('Not a server member');
@@ -29,9 +38,22 @@ export const createPermissionService = ({
 
         if (!defaultRole) throw new ForbiddenError('Not allowed to manage this server');
 
-        const perms = computePermissions({ isOwner, memberRoles, defaultRole });
-        return permissions.every((p) => hasPermission(perms, p));
-    },
-});
+        const permissions = computePermissions({ isOwner, memberRoles, defaultRole });
+        const highestRolePosition = memberRoles.reduce((max, r) => Math.max(max, r.position), defaultRole.position);
+
+        return { permissions, highestRolePosition };
+    };
+
+    const getPermissions = async (ctx: Context): Promise<bigint> => (await getMemberContext(ctx)).permissions;
+
+    return {
+        getMemberContext,
+        getPermissions,
+        hasPermissions: async (ctx: Context, ...permissions: PermissionBit[]): Promise<boolean> => {
+            const perms = await getPermissions(ctx);
+            return permissions.every((p) => hasPermission(perms, p));
+        },
+    };
+};
 
 export type PermissionService = ReturnType<typeof createPermissionService>;

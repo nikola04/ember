@@ -36,6 +36,20 @@
       "when": 1782249268469,
       "tag": "0004_white_cargill",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1782256036820,
+      "tag": "0005_complete_brother_voodoo",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1782256412265,
+      "tag": "0006_stale_thundra",
+      "breakpoints": true
     }
   ]
 }

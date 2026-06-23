@@ -28,6 +28,20 @@ export const serverDTO = z.object({
 });
 export type ServerDTO = z.infer<typeof serverDTO>;
 
+export const createRoleRequest = z.object({
+    name: z.string().min(1, 'name is required').max(100, 'name too long').trim(),
+    color: z.number().int().min(0).max(0xffffff).nullable().optional().default(null),
+    permissions: z.string().regex(/^\d+$/, 'permissions must be a non-negative integer string'),
+});
+export type CreateRoleRequest = z.infer<typeof createRoleRequest>;
+
+export const updateRoleRequest = z.object({
+    name: z.string().min(1).max(100).trim().optional(),
+    color: z.number().int().min(0).max(0xffffff).nullable().optional(),
+    permissions: z.string().regex(/^\d+$/, 'permissions must be a non-negative integer string').optional(),
+});
+export type UpdateRoleRequest = z.infer<typeof updateRoleRequest>;
+
 export const roleDTO = z.object({
     id: z.string(),
     serverId: z.string(),

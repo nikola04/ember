@@ -1,4 +1,5 @@
-import { pgTable, text, integer, bigint, timestamp, uuid, boolean, primaryKey, index, unique } from 'drizzle-orm/pg-core';
+import { pgTable, text, integer, bigint, timestamp, uuid, boolean, primaryKey, index, unique, uniqueIndex } from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm';
 import { servers } from './servers';
 import { serverMembers } from './server.members';
 
@@ -18,7 +19,13 @@ export const serverRoles = pgTable(
         isDefault: boolean().notNull().default(false),
         createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
     },
-    (t) => [index('server_roles_server_idx').on(t.serverId), unique('server_roles_default_uq').on(t.serverId, t.isDefault)]
+    (t) => [
+        index('server_roles_server_idx').on(t.serverId),
+        uniqueIndex('server_roles_default_uq')
+            .on(t.serverId)
+            .where(sql`"isDefault"`),
+        unique('server_roles_position').on(t.serverId, t.position),
+    ]
 );
 
 export type ServerRole = typeof serverRoles.$inferSelect;

@@ -6,6 +6,7 @@ import { createRoleRepo } from '../modules/servers/repository/roles.repo';
 import { createServerRepo } from '../modules/servers/repository/servers.repo';
 import { createPermissionService } from '../modules/permissions/permission.service';
 import { createServerService } from '../modules/servers/server.service';
+import { createRoleService } from '../modules/servers/role.service';
 import { createInviteRepo } from '../modules/invites/repository/invites.repo';
 import { createInviteService } from '../modules/invites/invite.service';
 
@@ -45,4 +46,12 @@ export const inviteService = createInviteService({
     serverRepository: repositories.server,
     memberRepository: repositories.member,
     inviteRepository: repositories.invite,
+});
+
+export const roleService = createRoleService({
+    db,
+    permissionService,
+    serverRepository: repositories.server,
+    memberRepository: repositories.member,
+    roleRepository: repositories.role,
 });

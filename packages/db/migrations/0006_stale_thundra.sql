@@ -1,0 +1,2 @@
+ALTER TABLE "server_roles" DROP CONSTRAINT "server_roles_default_uq";--> statement-breakpoint
+CREATE UNIQUE INDEX IF NOT EXISTS "server_roles_default_uq" ON "server_roles" USING btree ("serverId") WHERE "isDefault";

@@ -4,20 +4,29 @@ import { authGuard } from '../../plugins/auth.plugin';
 import {
     channelDTO,
     createChannelRequest,
+    createRoleRequest,
     createServerRequest,
     inviteCodeDTO,
     inviteDTO,
+    roleDTO,
     serverDetailsDTO,
     serverDTO,
     serverMemberDTO,
     serverMembershipDTO,
+    updateRoleRequest,
     updateServerRequest,
     z,
 } from '@ember/protocol';
 import type { ChannelService } from '../channels/channel.service';
 import type { InviteService } from '../invites/invite.service';
+import type { RoleService } from './role.service';
 
-export const createServerRoutes = (serverService: ServerService, channelService: ChannelService, inviteService: InviteService) =>
+export const createServerRoutes = (
+    serverService: ServerService,
+    channelService: ChannelService,
+    inviteService: InviteService,
+    roleService: RoleService
+) =>
     new Elysia({ prefix: '/servers', detail: { tags: ['Server'] } })
         .use(authGuard)
         .guard({ auth: true })
@@ -80,6 +89,33 @@ export const createServerRoutes = (serverService: ServerService, channelService:
             response: { 200: serverMemberDTO },
             detail: { summary: 'Get a member of this server' },
         })
+
+        // roles
+        .get('/:id/roles', ({ user, params }) => roleService.listRoles(user.id, params.id), {
+            response: { 200: z.array(roleDTO) },
+            detail: { summary: 'List server roles' },
+        })
+
+        .post('/:id/roles', ({ user, params, body }) => roleService.createRole(user.id, params.id, body), {
+            body: createRoleRequest,
+            response: { 200: roleDTO },
+            detail: { summary: 'Create server role' },
+        })
+
+        .patch('/:id/roles/:roleId', ({ user, params, body }) => roleService.updateRole(user.id, params.id, params.roleId, body), {
+            body: updateRoleRequest,
+            response: { 200: roleDTO },
+            detail: { summary: 'Update server role' },
+        })
+
+        .delete(
+            '/:id/roles/:roleId',
+            async ({ user, params, status }) => {
+                await roleService.deleteRole(user.id, params.id, params.roleId);
+                return status(204);
+            },
+            { detail: { summary: 'Delete server role' } }
+        )
 
         // invites
         .get('/:id/invites', ({ user, params }) => inviteService.listInvites(user.id, params.id), {

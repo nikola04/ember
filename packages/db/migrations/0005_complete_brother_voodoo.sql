@@ -1,0 +1,1 @@
+ALTER TABLE "server_roles" ADD CONSTRAINT "server_roles_position" UNIQUE("serverId","position");
