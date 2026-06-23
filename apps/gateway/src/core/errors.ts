@@ -15,6 +15,9 @@ export class NotFoundError extends AppError {
 export class UnauthorizedError extends AppError {
     readonly code = 'UNAUTHORIZED';
 }
+export class ForbiddenError extends AppError {
+    readonly code = 'FORBIDDEN';
+}
 export class ValidationError extends AppError {
     readonly code = 'VALIDATION';
     constructor(

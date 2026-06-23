@@ -2,7 +2,6 @@ import Elysia, { t } from 'elysia';
 import type { AuthService } from './auth.service';
 import { loginRequestSchema, registerRequestSchema } from '@ember/protocol';
 import { UnauthorizedError } from '../../core/errors';
-import { authGuard } from '../../plugins/auth.plugin';
 import { env } from '../../core/env';
 
 const cookieSchema = t.Cookie({
@@ -12,7 +11,6 @@ const cookieSchema = t.Cookie({
 
 export const createAuthRoutes = (authService: AuthService) =>
     new Elysia({ prefix: '/auth', detail: { tags: ['Auth'] } })
-        .use(authGuard)
         .post(
             '/register',
             async ({ body }) => {

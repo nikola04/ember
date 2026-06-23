@@ -26,10 +26,16 @@ export const authPlugin = new Elysia({ name: 'auth-plugin' }).derive({ as: 'glob
 });
 
 export const authGuard = new Elysia({ name: 'auth-guard' }).use(authPlugin).macro({
-    requireAuth: {
+    auth: (_require: boolean) => ({
         resolve: async ({ resolveUser }) => {
             const user = await resolveUser();
             return { user };
         },
-    },
+        detail: {
+            security: [{ JwtAuth: [] }, { CookieAuth: [] }],
+            responses: {
+                401: { description: 'Unauthorized' },
+            },
+        },
+    }),
 });

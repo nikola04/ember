@@ -15,6 +15,13 @@
       "when": 1782172320885,
       "tag": "0001_empty_reaper",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1782200752898,
+      "tag": "0002_noisy_valeria_richards",
+      "breakpoints": true
     }
   ]
 }
