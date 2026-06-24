@@ -2,8 +2,8 @@
 
 @theme {
     /* Surfaces — layered darkness */
-    --color-rail: #070708;
-    --color-panel: #0a0a0c;
+    --color-rail: #0d0d11;
+    --color-panel: #0d0d11;
     --color-main: #0c0c0f;
     --color-lift: #101015;
     --color-user: #0e0e12;
@@ -14,7 +14,7 @@
     --color-line-1: #16161b;
     --color-line-2: #1c1c22;
     --color-line-3: #20202a;
-    --color-line-rail: #131318;
+    --color-line-rail: #1a1c21;
 
     /* Foreground (text) */
     --color-fg-primary: #f0f0f4;

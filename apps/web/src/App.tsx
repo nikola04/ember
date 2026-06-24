@@ -7,6 +7,7 @@ import { LoginPage } from './features/auth/pages/LoginPage';
 import { RegisterPage } from './features/auth/pages/RegisterPage';
 import { AppShell } from './features/app-shell/components/AppShell';
 import { HomePlaceholder } from './features/app-shell/components/HomePlaceholder';
+import { ServerPage } from './features/servers/pages/ServerPage';
 
 export default function App() {
     return (
@@ -19,6 +20,7 @@ export default function App() {
                         <Route element={<ProtectedRoute />}>
                             <Route element={<AppShell />}>
                                 <Route index element={<HomePlaceholder />} />
+                                <Route path="servers/:id" element={<ServerPage />} />
                             </Route>
                         </Route>
                         <Route path="*" element={<Navigate to="/" replace />} />
