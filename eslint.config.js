@@ -2,6 +2,7 @@ import tsParser from '@typescript-eslint/parser';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import prettierPlugin from 'eslint-plugin-prettier';
 import prettierConfig from 'eslint-config-prettier';
+import tailwindPlugin from 'eslint-plugin-tailwindcss';
 
 export default [
     {
@@ -24,6 +25,20 @@ export default [
             'prettier/prettier': 'error',
             '@typescript-eslint/no-explicit-any': 'warn',
             '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+        },
+    },
+    {
+        files: ['apps/web/**/*.{ts,tsx}'],
+        plugins: {
+            tailwindcss: tailwindPlugin,
+        },
+        settings: {
+            tailwindcss: {
+                cssConfigPath: '/Users/nikolanedeljkovic/Projects/ember/apps/web/src/index.css',
+            },
+        },
+        rules: {
+            'tailwindcss/no-unnecessary-arbitrary-value': 'error',
         },
     },
 ];

@@ -3,6 +3,8 @@ import type { ServerService } from './server.service';
 import { authGuard } from '../../plugins/auth.plugin';
 import {
     channelDTO,
+    channelGroupDTO,
+    createChannelGroupRequest,
     createChannelRequest,
     createRoleRequest,
     createServerRequest,
@@ -18,12 +20,14 @@ import {
     z,
 } from '@ember/protocol';
 import type { ChannelService } from '../channels/channel.service';
+import type { ChannelGroupService } from '../channels/channel-groups.service';
 import type { InviteService } from '../invites/invite.service';
 import type { RoleService } from './role.service';
 
 export const createServerRoutes = (
     serverService: ServerService,
     channelService: ChannelService,
+    channelGroupService: ChannelGroupService,
     inviteService: InviteService,
     roleService: RoleService
 ) =>
@@ -77,6 +81,18 @@ export const createServerRoutes = (
         .get('/:id/channels', ({ user, params }) => serverService.listChannels(user.id, params.id), {
             response: { 200: z.array(channelDTO) },
             detail: { summary: 'List server channels' },
+        })
+
+        // channel groups
+        .get('/:id/channel-groups', ({ user, params }) => channelGroupService.listGroups(user.id, params.id), {
+            response: { 200: z.array(channelGroupDTO) },
+            detail: { summary: 'List server channel groups' },
+        })
+
+        .post('/:id/channel-groups', ({ user, params, body }) => channelGroupService.createGroup(user.id, params.id, body), {
+            body: createChannelGroupRequest,
+            response: { 200: channelGroupDTO },
+            detail: { summary: 'Create channel group' },
         })
 
         // members

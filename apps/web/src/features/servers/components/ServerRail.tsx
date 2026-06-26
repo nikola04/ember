@@ -33,10 +33,10 @@ function ServerTile({ server }: { server: ServerDTO }) {
                 {({ isActive }) => (
                     <>
                         {isActive && (
-                            <span className="absolute -left-[14px] top-1/2 h-[30px] w-[4px] -translate-y-1/2 rounded-r bg-accent" />
+                            <span className="bg-accent absolute top-1/2 -left-[14px] h-[30px] w-[4px] -translate-y-1/2 rounded-r" />
                         )}
                         <div
-                            className={`flex h-[46px] w-[46px] cursor-pointer items-center justify-center rounded-[14px] text-[15px] font-medium transition-all duration-200 group-hover:rounded-[16px] text-white ${isActive ? 'bg-accent' : 'bg-[#222730] hover:bg-accent/50'}`}
+                            className={`flex h-[46px] w-[46px] cursor-pointer items-center justify-center rounded-[14px] text-[15px] font-medium text-white transition-all duration-200 group-hover:rounded-[16px] ${isActive ? 'bg-accent' : 'hover:bg-accent/50 bg-[#222730]'}`}
                         >
                             {initialOf(server.name)}
                         </div>
@@ -46,7 +46,7 @@ function ServerTile({ server }: { server: ServerDTO }) {
 
             {tooltipY !== null && (
                 <div
-                    className="pointer-events-none max-w-48 fixed z-50 flex items-center"
+                    className="pointer-events-none fixed z-50 flex max-w-48 items-center"
                     style={{ top: tooltipY, left: 64, transform: 'translateY(-50%)' }}
                 >
                     {/* arrow */}
@@ -59,7 +59,7 @@ function ServerTile({ server }: { server: ServerDTO }) {
                         }}
                     />
                     <div className="flex items-center gap-2 rounded-[9px] bg-[#1e1e2a] px-3 py-2 shadow-xl">
-                        <span className="text-[13px] font-medium text-fg-primary">{server.name}</span>
+                        <span className="text-fg-primary text-[13px] font-medium">{server.name}</span>
                     </div>
                 </div>
             )}
@@ -72,7 +72,7 @@ export function ServerRail() {
     const [createOpen, setCreateOpen] = useState(false);
 
     return (
-        <div className="z-30 flex h-full w-[68px] flex-none flex-col items-center gap-[9px] border-r border-line-rail bg-rail py-[14px]">
+        <div className="border-line-rail bg-rail z-30 flex h-full w-[68px] flex-none flex-col items-center gap-[9px] border-r py-[14px]">
             {/*<div
                 className="flex h-[46px] w-[46px] flex-none cursor-pointer items-center justify-center rounded-[14px] bg-[#222730]"
                 title="Ember"
@@ -82,7 +82,7 @@ export function ServerRail() {
 
             <div className="flex flex-1 flex-col items-center gap-[9px] overflow-y-auto">
                 {isLoading ? (
-                    <div className="h-[46px] w-[46px] animate-pulse rounded-[14px] bg-line-2" />
+                    <div className="bg-line-2 h-[46px] w-[46px] animate-pulse rounded-[14px]" />
                 ) : (
                     servers?.map((s) => <ServerTile key={s.id} server={s} />)
                 )}
@@ -90,14 +90,14 @@ export function ServerRail() {
                 <button
                     type="button"
                     onClick={() => setCreateOpen(true)}
-                    className="flex h-[46px] w-[46px] cursor-pointer items-center justify-center rounded-[14px] border border-dashed border-[#2a2a32] text-mint transition-colors duration-200 hover:border-[#3a564c] hover:bg-[#101714]"
+                    className="text-mint flex h-[46px] w-[46px] cursor-pointer items-center justify-center rounded-[14px] border border-dashed border-[#2a2a32] transition-colors duration-200 hover:border-[#3a564c] hover:bg-[#101714]"
                     aria-label="Add server"
                 >
                     <Plus size={22} strokeWidth={1.5} />
                 </button>
             </div>
 
-            <div className="my-[3px] h-px w-[26px] bg-line-2" />
+            <div className="bg-line-2 my-[3px] h-px w-[26px]" />
 
             <ProfileButton />
 

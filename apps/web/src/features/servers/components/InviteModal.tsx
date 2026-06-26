@@ -43,40 +43,40 @@ export function InviteModal({ server, onClose }: InviteModalProps) {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60" onClick={onClose}>
             <div
-                className="relative w-full max-w-[440px] rounded-[14px] border border-line-2 bg-[#111118] p-6 shadow-2xl"
+                className="border-line-2 relative w-full max-w-[440px] rounded-[14px] border bg-[#111118] p-6 shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
             >
                 <button
                     type="button"
                     onClick={onClose}
-                    className="absolute right-4 top-4 flex h-[28px] w-[28px] items-center justify-center rounded-[8px] text-fg-dim transition-colors hover:bg-iconbtn hover:text-fg-primary"
+                    className="text-fg-dim hover:bg-iconbtn hover:text-fg-primary absolute top-4 right-4 flex h-[28px] w-[28px] items-center justify-center rounded-[8px] transition-colors"
                 >
                     <X size={16} strokeWidth={1.5} />
                 </button>
 
                 <div className="mb-5">
-                    <h2 className="text-[15px] font-medium text-fg-primary">Invite people to {server.name}</h2>
-                    <p className="mt-1 text-[13px] text-fg-muted">Share this link to grant access to your server.</p>
+                    <h2 className="text-fg-primary text-[15px] font-medium">Invite people to {server.name}</h2>
+                    <p className="text-fg-muted mt-1 text-[13px]">Share this link to grant access to your server.</p>
                 </div>
 
                 {isError ? (
-                    <div className="rounded-[9px] bg-lift p-3 text-[13px] text-fg-dim">Failed to generate invite. Try again.</div>
+                    <div className="bg-lift text-fg-dim rounded-[9px] p-3 text-[13px]">Failed to generate invite. Try again.</div>
                 ) : (
                     <div className="flex gap-2">
-                        <div className="relative rounded-[9px] flex-1 flex items-center border border-line-3">
-                            <Link2 size={14} strokeWidth={1.5} className="absolute left-3 top-1/2 -translate-y-1/2 text-fg-hint" />
+                        <div className="border-line-3 relative flex flex-1 items-center rounded-[9px] border">
+                            <Link2 size={14} strokeWidth={1.5} className="text-fg-hint absolute top-1/2 left-3 -translate-y-1/2" />
                             <input
                                 ref={inputRef}
                                 readOnly
                                 value={isPending ? 'Generating…' : inviteUrl}
                                 onClick={() => inputRef.current?.select()}
-                                className="w-full rounded-[9px] bg-lift py-[9px] pl-10 pr-3 text-[13.5px] text-fg-body outline-none selection:bg-accent/30 focus:border-line-2"
+                                className="bg-lift text-fg-body selection:bg-accent/30 focus:border-line-2 w-full rounded-[9px] py-[9px] pr-3 pl-10 text-[13.5px] outline-none"
                             />
                             <button
                                 type="button"
                                 disabled={!inviteUrl || copied}
                                 onClick={handleCopy}
-                                className="flex items-center justify-center gap-1.5 rounded-[9px] px-4 text-[13.5px] font-medium text-white hover:text-accent cursor-pointer transition-all hover:opacity-90 disabled:opacity-50"
+                                className="hover:text-accent flex cursor-pointer items-center justify-center gap-1.5 rounded-[9px] px-4 text-[13.5px] font-medium text-white transition-all hover:opacity-90 disabled:opacity-50"
                             >
                                 {copied ? <Check size={14} strokeWidth={2} /> : <Copy size={14} strokeWidth={1.5} />}
                             </button>
@@ -84,7 +84,7 @@ export function InviteModal({ server, onClose }: InviteModalProps) {
                     </div>
                 )}
 
-                <p className="mt-3 text-[11.5px] text-fg-hint">Anyone with this link can join your server.</p>
+                <p className="text-fg-hint mt-3 text-[11.5px]">Anyone with this link can join your server.</p>
             </div>
         </div>
     );

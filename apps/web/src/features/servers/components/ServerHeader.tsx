@@ -38,18 +38,18 @@ export function ServerHeader({ server }: ServerHeaderProps) {
                 <button
                     type="button"
                     onClick={() => setOpen((v) => !v)}
-                    className="flex h-[56px] w-full cursor-pointer items-center justify-between border-b border-line-1 px-[18px] text-fg-primary transition-colors duration-150 hover:bg-main"
+                    className="border-line-1 text-fg-primary hover:bg-main flex h-[56px] w-full cursor-pointer items-center justify-between border-b px-[18px] transition-colors duration-150"
                 >
                     <span className="truncate text-[15.5px] font-medium">{server.name}</span>
                     <ChevronDown
                         size={18}
                         strokeWidth={1.5}
-                        className={`flex-none text-fg-muted transition-transform duration-150 ${open ? 'rotate-180' : ''}`}
+                        className={`text-fg-muted flex-none transition-transform duration-150 ${open ? 'rotate-180' : ''}`}
                     />
                 </button>
 
                 {open && (
-                    <div className="absolute left-2 right-2 top-[54px] z-40 flex flex-col rounded-[10px] border border-line-2 bg-lift p-1 shadow-xl">
+                    <div className="border-line-2 bg-lift absolute top-[54px] right-2 left-2 z-40 flex flex-col rounded-[10px] border p-1 shadow-xl">
                         <DropdownItem
                             icon={<UserPlus size={14} strokeWidth={1.5} />}
                             label="Invite People"
@@ -63,7 +63,7 @@ export function ServerHeader({ server }: ServerHeaderProps) {
                         />
                         {!isOwner && (
                             <>
-                                <div className="my-1 h-px bg-line-2" />
+                                <div className="bg-line-2 my-1 h-px" />
                                 <DropdownItem
                                     icon={<LogOut size={14} strokeWidth={1.5} />}
                                     label="Leave Server"
@@ -100,7 +100,7 @@ function DropdownItem({ icon, label, accent, danger, onClick }: DropdownItemProp
         <button
             type="button"
             onClick={onClick}
-            className={`flex items-center gap-2 rounded-md px-3 py-2 text-left text-[13px] transition-colors hover:bg-iconbtn ${color}`}
+            className={`hover:bg-iconbtn flex items-center gap-2 rounded-md px-3 py-2 text-left text-[13px] transition-colors ${color}`}
         >
             {icon}
             <span>{label}</span>

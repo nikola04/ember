@@ -40,12 +40,12 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
         <form onSubmit={onSubmit} className="flex w-full max-w-sm flex-col gap-4">
             {fields.map((f) => (
                 <div key={f.name} className="flex flex-col gap-1">
-                    <label className="text-[12px] font-medium uppercase tracking-[0.1em] text-fg-muted">{f.label}</label>
+                    <label className="text-fg-muted text-[12px] font-medium tracking-widest uppercase">{f.label}</label>
                     <input
                         type={f.type}
                         autoComplete={f.autoComplete}
                         {...field(f.name)}
-                        className="rounded-[9px] border border-line-2 bg-lift px-3 py-[10px] text-[14px] text-fg-primary outline-none transition-colors focus:border-accent"
+                        className="border-line-2 bg-lift text-fg-primary focus:border-accent rounded-[9px] border px-3 py-[10px] text-[14px] transition-colors outline-none"
                     />
                     {errors[f.name] && <span className="text-[12px] text-red-400">{errors[f.name]?.message}</span>}
                 </div>
@@ -56,7 +56,7 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
             <button
                 type="submit"
                 disabled={registerMutation.isPending || login.isPending}
-                className="rounded-[9px] bg-accent px-4 py-[10px] text-[14px] font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+                className="bg-accent rounded-[9px] px-4 py-[10px] text-[14px] font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
             >
                 {registerMutation.isPending || login.isPending ? 'Creating account…' : 'Create account'}
             </button>

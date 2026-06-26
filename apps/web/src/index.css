@@ -2,34 +2,34 @@
 
 @theme {
     /* Surfaces — layered darkness */
-    --color-rail: #0d0d11;
-    --color-panel: #0d0d11;
-    --color-main: #0c0c0f;
-    --color-lift: #101015;
-    --color-user: #0e0e12;
-    --color-active: #15151a;
-    --color-iconbtn: #16161b;
+    --color-rail: #1c1c24;
+    --color-panel: #1c1c24;
+    --color-main: #202028;
+    --color-lift: #2e2e3c;
+    --color-user: #27273a;
+    --color-active: #303040;
+    --color-iconbtn: #2e2e3c;
 
     /* Borders */
-    --color-line-1: #16161b;
-    --color-line-2: #1c1c22;
-    --color-line-3: #20202a;
-    --color-line-rail: #1a1c21;
+    --color-line-1: #2e2e3c;
+    --color-line-2: #383848;
+    --color-line-3: #424256;
+    --color-line-rail: #282836;
 
     /* Foreground (text) */
-    --color-fg-primary: #f0f0f4;
-    --color-fg-body: #d8d8de;
-    --color-fg-muted: #6a6a74;
-    --color-fg-hint: #4a4a52;
-    --color-fg-dim: #8a8a94;
-    --color-fg-soft: #c8c8d0;
-    --color-fg-faint: #5a5a64;
+    --color-fg-primary: #ffffff;
+    --color-fg-body: #f3f3f5;
+    --color-fg-muted: #83838d;
+    --color-fg-hint: #62626c;
+    --color-fg-dim: #a4a4ac;
+    --color-fg-soft: #e3e3e7;
+    --color-fg-faint: #72727e;
 
     /* Accent + voice/live */
-    --color-accent: #e35d3a;
-    --color-accent-soft: #fbd0bb;
-    --color-mint: #8fd9bf;
-    --color-online: #5fa87a;
+    --color-accent: #e98166;
+    --color-accent-soft: #fdf1eb;
+    --color-mint: #b5e5d4;
+    --color-online: #80b995;
 
     --font-sans: 'Hanken Grotesk', system-ui, sans-serif;
     --font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
@@ -103,7 +103,7 @@ body {
     border-radius: 8px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #26262e;
+    background: #3d3d49;
 }
 ::-webkit-scrollbar-track {
     background: transparent;

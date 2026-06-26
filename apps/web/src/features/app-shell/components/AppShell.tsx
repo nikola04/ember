@@ -3,7 +3,7 @@ import { ServerRail } from '../../servers/components/ServerRail';
 
 export function AppShell() {
     return (
-        <div className="relative flex h-screen w-screen overflow-hidden bg-main font-sans text-fg-body">
+        <div className="bg-main text-fg-body relative flex h-screen w-screen overflow-hidden font-sans">
             <ServerRail />
             <main className="relative flex min-w-0 flex-1">
                 <Outlet />

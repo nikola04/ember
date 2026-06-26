@@ -14,12 +14,6 @@ interface ServerSettingsModalProps {
 
 type Tab = 'profile' | 'invites' | 'roles' | 'delete';
 
-const TABS: { id: Tab; label: string }[] = [
-    { id: 'profile', label: 'Server Profile' },
-    { id: 'invites', label: 'Invites' },
-    { id: 'roles', label: 'Roles' },
-];
-
 export function ServerSettingsModal({ server, onClose }: ServerSettingsModalProps) {
     const { user } = useAuth();
     const isOwner = user?.id === server.ownerId;
@@ -35,44 +29,31 @@ export function ServerSettingsModal({ server, onClose }: ServerSettingsModalProp
 
     return (
         <div className="fixed inset-0 z-50 flex bg-[#0e0e14]">
-            {/* Left nav */}
-            <div className="flex w-[220px] flex-none flex-col border-r border-line-1 px-3 py-8">
-                <div className="mb-4 px-3 text-[11px] font-medium uppercase tracking-[0.1em] text-fg-hint">{server.name}</div>
-                <nav className="flex flex-1 flex-col gap-0.5">
-                    {TABS.map((t) => (
-                        <button
-                            key={t.id}
-                            type="button"
-                            onClick={() => setTab(t.id)}
-                            className={`rounded-[7px] px-3 py-[7px] text-left text-[13.5px] transition-colors ${
-                                tab === t.id ? 'bg-active font-medium text-fg-primary' : 'text-fg-dim hover:bg-lift hover:text-fg-primary'
-                            }`}
-                        >
-                            {t.label}
-                        </button>
-                    ))}
-                    {isOwner && (
-                        <>
-                            <div className="my-2 h-px bg-line-1" />
-                            <button
-                                type="button"
-                                onClick={() => setTab('delete')}
-                                className={`rounded-[7px] px-3 py-[7px] text-left text-[13.5px] transition-colors ${
-                                    tab === 'delete'
-                                        ? 'bg-[#2a1515] font-medium text-[#e35d3a]'
-                                        : 'text-[#c06050] hover:bg-[#1e1212] hover:text-[#e35d3a]'
-                                }`}
-                            >
-                                Delete Server
-                            </button>
-                        </>
-                    )}
-                </nav>
-            </div>
+            {/* Inner layout: centered, max-width, nav + content side by side */}
+            <div className="mx-auto flex w-full max-w-[940px] min-w-0">
+                {/* Nav sidebar — fixed 220px, right-aligned within its column */}
+                <div className="flex w-[236px] flex-none justify-end py-[60px] pr-[16px]">
+                    <nav className="w-[200px]">
+                        <div className="text-fg-hint mb-1 px-3 text-[11px] font-semibold tracking-[0.08em] uppercase">{server.name}</div>
 
-            {/* Content */}
-            <div className="flex min-w-0 flex-1 flex-col overflow-y-auto">
-                <div className="mx-auto w-full max-w-[680px] px-10 py-10">
+                        <NavItem id="profile" current={tab} label="Server Profile" onClick={setTab} />
+                        <NavItem id="invites" current={tab} label="Invites" onClick={setTab} />
+                        <NavItem id="roles" current={tab} label="Roles" onClick={setTab} />
+
+                        {isOwner && (
+                            <>
+                                <div className="bg-line-1 mx-3 my-2 h-px" />
+                                <NavItem id="delete" current={tab} label="Delete Server" onClick={setTab} danger />
+                            </>
+                        )}
+                    </nav>
+                </div>
+
+                {/* Divider */}
+                <div className="bg-line-1 w-px flex-none self-stretch" />
+
+                {/* Content */}
+                <div className="min-w-0 flex-1 overflow-y-auto px-[40px] py-[60px]">
                     {tab === 'profile' && <ProfileTab server={server} />}
                     {tab === 'invites' && <InvitesTab serverId={server.id} />}
                     {tab === 'roles' && <RolesTab serverId={server.id} />}
@@ -80,27 +61,61 @@ export function ServerSettingsModal({ server, onClose }: ServerSettingsModalProp
                 </div>
             </div>
 
+            {/* Close button */}
             <button
                 type="button"
                 onClick={onClose}
-                className="absolute right-6 top-6 flex h-[32px] w-[32px] items-center justify-center rounded-[8px] text-fg-dim transition-colors hover:bg-iconbtn hover:text-fg-primary"
+                className="absolute top-8 right-8 flex flex-col items-center gap-1"
                 aria-label="Close settings"
             >
-                <X size={18} strokeWidth={1.5} />
+                <div className="border-line-2 text-fg-dim hover:border-fg-faint hover:text-fg-primary flex h-[36px] w-[36px] items-center justify-center rounded-full border transition-colors">
+                    <X size={18} strokeWidth={1.5} />
+                </div>
+                <span className="text-fg-hint text-[10px] font-medium tracking-wider uppercase">ESC</span>
             </button>
         </div>
     );
 }
 
+interface NavItemProps {
+    id: Tab;
+    current: Tab;
+    label: string;
+    danger?: boolean;
+    onClick: (id: Tab) => void;
+}
+
+function NavItem({ id, current, label, danger, onClick }: NavItemProps) {
+    const isActive = id === current;
+
+    const classes = danger
+        ? isActive
+            ? 'bg-[#2a1515] font-medium text-[#e35d3a]'
+            : 'text-[#c06050] hover:bg-[#1e1212] hover:text-[#e35d3a]'
+        : isActive
+          ? 'bg-active font-medium text-fg-primary'
+          : 'text-fg-dim hover:bg-lift hover:text-fg-primary';
+
+    return (
+        <button
+            type="button"
+            onClick={() => onClick(id)}
+            className={`w-full rounded-[7px] px-3 py-[7px] text-left text-[13.5px] transition-colors ${classes}`}
+        >
+            {label}
+        </button>
+    );
+}
+
 function SectionTitle({ children }: { children: React.ReactNode }) {
-    return <h2 className="mb-5 text-[18px] font-medium text-fg-primary">{children}</h2>;
+    return <h2 className="text-fg-primary mb-5 text-[18px] font-medium">{children}</h2>;
 }
 
 function Field({ label, value }: { label: string; value: string | null }) {
     return (
         <div className="mb-4">
-            <div className="mb-1.5 text-[11px] font-medium uppercase tracking-[0.08em] text-fg-hint">{label}</div>
-            <div className="rounded-[9px] border border-line-2 bg-lift px-3 py-2.5 text-[13.5px] text-fg-body">
+            <div className="text-fg-hint mb-1.5 text-[11px] font-medium tracking-[0.08em] uppercase">{label}</div>
+            <div className="border-line-2 bg-lift text-fg-body rounded-[9px] border px-3 py-2.5 text-[13.5px]">
                 {value ?? <span className="text-fg-hint italic">Not set</span>}
             </div>
         </div>
@@ -120,8 +135,8 @@ function ProfileTab({ server }: { server: ServerDetailsDTO }) {
                     {server.name.slice(0, 2).toUpperCase()}
                 </div>
                 <div>
-                    <div className="text-[16px] font-medium text-fg-primary">{server.name}</div>
-                    <div className="mt-0.5 text-[12px] text-fg-hint">ID: {server.id}</div>
+                    <div className="text-fg-primary text-[16px] font-medium">{server.name}</div>
+                    <div className="text-fg-hint mt-0.5 text-[12px]">ID: {server.id}</div>
                 </div>
             </div>
             <Field label="Name" value={server.name} />
@@ -139,11 +154,11 @@ function InvitesTab({ serverId }: { serverId: string }) {
         <div>
             <SectionTitle>Invites</SectionTitle>
             {isLoading ? (
-                <div className="text-[13px] text-fg-hint">Loading…</div>
+                <div className="text-fg-hint text-[13px]">Loading…</div>
             ) : !invites?.length ? (
                 <div className="flex flex-col items-center gap-2 py-12 text-center">
                     <Link2 size={28} strokeWidth={1.5} className="text-fg-hint" />
-                    <div className="text-[14px] text-fg-muted">No active invites</div>
+                    <div className="text-fg-muted text-[14px]">No active invites</div>
                 </div>
             ) : (
                 <div className="flex flex-col gap-2">
@@ -164,17 +179,17 @@ function InvitesTab({ serverId }: { serverId: string }) {
 function InviteRow({ invite, onDelete, deleting }: { invite: InviteDTO; onDelete: () => void; deleting: boolean }) {
     const url = `${window.location.origin}/invite/${invite.code}`;
     return (
-        <div className="flex items-center gap-3 rounded-[10px] border border-line-2 bg-lift px-4 py-3">
-            <Link2 size={14} strokeWidth={1.5} className="flex-none text-fg-hint" />
+        <div className="border-line-2 bg-lift flex items-center gap-3 rounded-[10px] border px-4 py-3">
+            <Link2 size={14} strokeWidth={1.5} className="text-fg-hint flex-none" />
             <div className="min-w-0 flex-1">
-                <div className="truncate text-[13px] font-medium text-fg-body">{url}</div>
-                <div className="text-[11.5px] text-fg-hint">Code: {invite.code}</div>
+                <div className="text-fg-body truncate text-[13px] font-medium">{url}</div>
+                <div className="text-fg-hint text-[11.5px]">Code: {invite.code}</div>
             </div>
             <button
                 type="button"
                 onClick={onDelete}
                 disabled={deleting}
-                className="flex h-[28px] w-[28px] flex-none items-center justify-center rounded-[7px] text-fg-hint transition-colors hover:bg-iconbtn hover:text-[#d6634a] disabled:opacity-40"
+                className="text-fg-hint hover:bg-iconbtn flex h-[28px] w-[28px] flex-none items-center justify-center rounded-[7px] transition-colors hover:text-[#d6634a] disabled:opacity-40"
             >
                 <Trash2 size={14} strokeWidth={1.5} />
             </button>
@@ -190,11 +205,11 @@ function RolesTab({ serverId }: { serverId: string }) {
         <div>
             <SectionTitle>Roles</SectionTitle>
             {isLoading ? (
-                <div className="text-[13px] text-fg-hint">Loading…</div>
+                <div className="text-fg-hint text-[13px]">Loading…</div>
             ) : !sorted.length ? (
                 <div className="flex flex-col items-center gap-2 py-12 text-center">
                     <Shield size={28} strokeWidth={1.5} className="text-fg-hint" />
-                    <div className="text-[14px] text-fg-muted">No roles yet</div>
+                    <div className="text-fg-muted text-[14px]">No roles yet</div>
                 </div>
             ) : (
                 <div className="flex flex-col gap-2">
@@ -226,8 +241,8 @@ function DeleteTab({ server, onDeleted }: { server: ServerDetailsDTO; onDeleted:
                     <AlertTriangle size={16} strokeWidth={1.5} />
                     <span className="text-[13.5px] font-medium">This action cannot be undone</span>
                 </div>
-                <p className="mb-5 text-[13px] text-fg-muted">
-                    Permanently deletes <span className="font-medium text-fg-primary">{server.name}</span> and all its channels, messages,
+                <p className="text-fg-muted mb-5 text-[13px]">
+                    Permanently deletes <span className="text-fg-primary font-medium">{server.name}</span> and all its channels, messages,
                     and data. All members will lose access immediately.
                 </p>
                 <label className="mb-5 flex cursor-pointer items-start gap-3">
@@ -235,9 +250,9 @@ function DeleteTab({ server, onDeleted }: { server: ServerDetailsDTO; onDeleted:
                         type="checkbox"
                         checked={confirmed}
                         onChange={(e) => setConfirmed(e.target.checked)}
-                        className="mt-0.5 accent-accent"
+                        className="accent-accent mt-0.5"
                     />
-                    <span className="text-[13px] text-fg-dim">I understand this will permanently delete the server and all its data.</span>
+                    <span className="text-fg-dim text-[13px]">I understand this will permanently delete the server and all its data.</span>
                 </label>
                 <button
                     type="button"
@@ -260,19 +275,19 @@ function colorHex(n: number | null) {
 function RoleRow({ role }: { role: RoleDTO }) {
     const hex = colorHex(role.color);
     return (
-        <div className="flex items-center gap-3 rounded-[10px] border border-line-2 bg-lift px-4 py-3">
-            <div className="h-[14px] w-[14px] flex-none rounded-full border border-line-3" style={{ backgroundColor: hex ?? '#6a6a74' }} />
+        <div className="border-line-2 bg-lift flex items-center gap-3 rounded-[10px] border px-4 py-3">
+            <div className="border-line-3 h-[14px] w-[14px] flex-none rounded-full border" style={{ backgroundColor: hex ?? '#6a6a74' }} />
             <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
-                    <span className="text-[13.5px] font-medium text-fg-primary">{role.name}</span>
+                    <span className="text-fg-primary text-[13.5px] font-medium">{role.name}</span>
                     {role.isDefault && (
-                        <span className="rounded px-1.5 py-px text-[10px] font-medium uppercase tracking-wide text-fg-hint ring-1 ring-line-2">
+                        <span className="text-fg-hint ring-line-2 rounded px-1.5 py-px text-[10px] font-medium tracking-wide uppercase ring-1">
                             default
                         </span>
                     )}
                 </div>
             </div>
-            <div className="flex items-center gap-2 text-[11.5px] text-fg-hint">
+            <div className="text-fg-hint flex items-center gap-2 text-[11.5px]">
                 <User size={12} strokeWidth={1.5} />
                 <span>pos {role.position}</span>
             </div>

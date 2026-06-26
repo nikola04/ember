@@ -10,8 +10,8 @@ interface ServerTopBarProps {
 export function ServerTopBar({ server: _server, membersOpen, onToggleMembers }: ServerTopBarProps) {
     const channelName = '';
     return (
-        <header className="z-10 flex h-[56px] flex-none items-center gap-[14px] bg-rail border-b border-line-rail px-[18px]">
-            <span className="text-[16px] font-medium text-fg-primary">{channelName}</span>
+        <header className="bg-rail border-line-rail z-10 flex h-[56px] flex-none items-center gap-[14px] border-b px-[18px]">
+            <span className="text-fg-primary text-[16px] font-medium">{channelName}</span>
 
             <div className="ml-auto flex items-center gap-1">
                 <button

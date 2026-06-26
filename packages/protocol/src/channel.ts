@@ -29,6 +29,21 @@ const createVoiceChannelRequest = baseCreate.extend({
 export const createChannelRequest = z.discriminatedUnion('type', [createTextChannelRequest, createVoiceChannelRequest]);
 export type CreateChannelRequest = z.infer<typeof createChannelRequest>;
 
+export const createChannelGroupRequest = z.object({
+    name: z.string().min(1, 'name is required').max(100, 'name too long').trim(),
+    position: z.number().int().nonnegative().optional(),
+});
+export type CreateChannelGroupRequest = z.infer<typeof createChannelGroupRequest>;
+
+export const channelGroupDTO = z.object({
+    id: z.string(),
+    serverId: z.string(),
+    name: z.string(),
+    position: z.number().int(),
+    createdAt: z.string(),
+});
+export type ChannelGroupDTO = z.infer<typeof channelGroupDTO>;
+
 export const channelDTO = z.object({
     id: z.string(),
     serverId: z.string(),

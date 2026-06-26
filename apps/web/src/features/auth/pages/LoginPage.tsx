@@ -10,14 +10,14 @@ export function LoginPage() {
     if (isAuthenticated) return <Navigate to="/" replace />;
 
     return (
-        <div className="flex h-screen w-screen items-center justify-center bg-rail">
+        <div className="bg-rail flex h-screen w-screen items-center justify-center">
             <div className="flex w-full max-w-sm flex-col items-center gap-8 px-6">
                 <div className="flex flex-col items-center gap-3">
                     <EmberLogo size={40} animate={false} />
-                    <h1 className="text-[20px] font-medium text-fg-primary">Welcome back to Ember</h1>
+                    <h1 className="text-fg-primary text-[20px] font-medium">Welcome back to Ember</h1>
                 </div>
                 <LoginForm onSuccess={() => navigate('/', { replace: true })} />
-                <p className="text-[13px] text-fg-muted">
+                <p className="text-fg-muted text-[13px]">
                     Don't have an account?{' '}
                     <Link to="/register" className="text-accent hover:underline">
                         Create one

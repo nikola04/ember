@@ -1,6 +1,8 @@
 import { db } from './db';
 import { createChannelRepo } from '../modules/channels/repository/channels.repo';
+import { createChannelGroupRepo } from '../modules/channels/repository/channel-groups.repo';
 import { createChannelService } from '../modules/channels/channel.service';
+import { createChannelGroupService } from '../modules/channels/channel-groups.service';
 import { createMemberRepo } from '../modules/servers/repository/members.repo';
 import { createRoleRepo } from '../modules/servers/repository/roles.repo';
 import { createServerRepo } from '../modules/servers/repository/servers.repo';
@@ -15,6 +17,7 @@ export const repositories = {
     member: createMemberRepo(),
     role: createRoleRepo(),
     channel: createChannelRepo(),
+    channelGroup: createChannelGroupRepo(),
     invite: createInviteRepo(),
 };
 
@@ -37,6 +40,13 @@ export const channelService = createChannelService({
     db,
     permissionService,
     channelRepository: repositories.channel,
+    serverRepository: repositories.server,
+});
+
+export const channelGroupService = createChannelGroupService({
+    db,
+    permissionService,
+    channelGroupRepository: repositories.channelGroup,
     serverRepository: repositories.server,
 });
 

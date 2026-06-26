@@ -30,23 +30,23 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
     return (
         <form onSubmit={onSubmit} className="flex w-full max-w-sm flex-col gap-4">
             <div className="flex flex-col gap-1">
-                <label className="text-[12px] font-medium uppercase tracking-[0.1em] text-fg-muted">Email</label>
+                <label className="text-fg-muted text-[12px] font-medium tracking-widest uppercase">Email</label>
                 <input
                     type="email"
                     autoComplete="email"
                     {...field('email')}
-                    className="rounded-[9px] border border-line-2 bg-lift px-3 py-[10px] text-[14px] text-fg-primary outline-none transition-colors focus:border-accent"
+                    className="border-line-2 bg-lift text-fg-primary focus:border-accent rounded-[9px] border px-3 py-[10px] text-[14px] transition-colors outline-none"
                 />
                 {errors.email && <span className="text-[12px] text-red-400">{errors.email.message}</span>}
             </div>
 
             <div className="flex flex-col gap-1">
-                <label className="text-[12px] font-medium uppercase tracking-[0.1em] text-fg-muted">Password</label>
+                <label className="text-fg-muted text-[12px] font-medium tracking-widest uppercase">Password</label>
                 <input
                     type="password"
                     autoComplete="current-password"
                     {...field('password')}
-                    className="rounded-[9px] border border-line-2 bg-lift px-3 py-[10px] text-[14px] text-fg-primary outline-none transition-colors focus:border-accent"
+                    className="border-line-2 bg-lift text-fg-primary focus:border-accent rounded-[9px] border px-3 py-[10px] text-[14px] transition-colors outline-none"
                 />
                 {errors.password && <span className="text-[12px] text-red-400">{errors.password.message}</span>}
             </div>
@@ -56,7 +56,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
             <button
                 type="submit"
                 disabled={login.isPending}
-                className="rounded-[9px] bg-accent px-4 py-[10px] text-[14px] font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+                className="bg-accent rounded-[9px] px-4 py-[10px] text-[14px] font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
             >
                 {login.isPending ? 'Signing in…' : 'Sign in'}
             </button>

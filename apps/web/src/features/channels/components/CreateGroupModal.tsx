@@ -2,23 +2,21 @@ import { X } from 'lucide-react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from 'react-router-dom';
 import { z } from '@ember/protocol';
-import { useCreateServer } from '../hooks/useCreateServer';
+import { useCreateChannelGroup } from '../hooks/useChannelGroups';
 
 const formSchema = z.object({
     name: z.string().min(1, 'Name is required').max(100, 'Name too long').trim(),
-    description: z.string().max(1000).trim().optional(),
 });
 type FormValues = z.infer<typeof formSchema>;
 
-interface CreateServerModalProps {
+interface CreateGroupModalProps {
+    serverId: string;
     onClose: () => void;
 }
 
-export function CreateServerModal({ onClose }: CreateServerModalProps) {
-    const navigate = useNavigate();
-    const mutation = useCreateServer();
+export function CreateGroupModal({ serverId, onClose }: CreateGroupModalProps) {
+    const mutation = useCreateChannelGroup(serverId);
 
     const {
         register,
@@ -27,7 +25,7 @@ export function CreateServerModal({ onClose }: CreateServerModalProps) {
         setError,
     } = useForm<FormValues>({
         resolver: zodResolver(formSchema),
-        defaultValues: { name: '', description: '' },
+        defaultValues: { name: '' },
     });
 
     useEffect(() => {
@@ -40,18 +38,17 @@ export function CreateServerModal({ onClose }: CreateServerModalProps) {
 
     async function onSubmit(data: FormValues) {
         try {
-            const server = await mutation.mutateAsync({ name: data.name, description: data.description, iconId: null, bannerId: null });
+            await mutation.mutateAsync({ name: data.name });
             onClose();
-            navigate(`/servers/${server.id}`);
         } catch {
-            setError('root', { message: 'Failed to create server. Try again.' });
+            setError('root', { message: 'Failed to create group. Try again.' });
         }
     }
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60" onClick={onClose}>
             <div
-                className="border-line-2 relative w-full max-w-[420px] rounded-[14px] border bg-[#111118] p-6 shadow-2xl"
+                className="border-line-2 relative w-full max-w-[420px] rounded-[14px] border bg-[#1a1a24] p-6 shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
             >
                 <button
@@ -62,32 +59,21 @@ export function CreateServerModal({ onClose }: CreateServerModalProps) {
                     <X size={16} strokeWidth={1.5} />
                 </button>
 
-                <h2 className="text-fg-primary mb-1 text-[15px] font-medium">Create a Server</h2>
-                <p className="text-fg-muted mb-5 text-[13px]">Give your server a name to get started.</p>
+                <h2 className="text-fg-primary mb-1 text-[15px] font-medium">Create Group</h2>
+                <p className="text-fg-muted mb-5 text-[13px]">Groups organize channels into categories.</p>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
                     <div>
                         <label className="text-fg-hint mb-1.5 block text-[11px] font-medium tracking-[0.08em] uppercase">
-                            Server Name <span className="text-accent">*</span>
+                            Group Name <span className="text-accent">*</span>
                         </label>
                         <input
                             {...register('name')}
                             autoFocus
-                            placeholder="My awesome server"
+                            placeholder="Text Channels"
                             className="border-line-2 bg-lift text-fg-primary placeholder:text-fg-hint focus:border-fg-faint w-full rounded-[9px] border px-3 py-2.5 text-[13.5px] transition-colors outline-none"
                         />
                         {errors.name && <p className="text-accent mt-1.5 text-[12px]">{errors.name.message}</p>}
-                    </div>
-
-                    <div>
-                        <label className="text-fg-hint mb-1.5 block text-[11px] font-medium tracking-[0.08em] uppercase">Description</label>
-                        <textarea
-                            {...register('description')}
-                            rows={3}
-                            placeholder="What's this server about?"
-                            className="border-line-2 bg-lift text-fg-primary placeholder:text-fg-hint focus:border-fg-faint w-full resize-none rounded-[9px] border px-3 py-2.5 text-[13.5px] transition-colors outline-none"
-                        />
-                        {errors.description && <p className="text-accent mt-1.5 text-[12px]">{errors.description.message}</p>}
                     </div>
 
                     {errors.root && <p className="text-accent text-[12px]">{errors.root.message}</p>}
@@ -105,7 +91,7 @@ export function CreateServerModal({ onClose }: CreateServerModalProps) {
                             disabled={isSubmitting || mutation.isPending}
                             className="bg-accent rounded-[9px] px-5 py-2 text-[13.5px] font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
                         >
-                            {mutation.isPending ? 'Creating…' : 'Create Server'}
+                            {mutation.isPending ? 'Creating…' : 'Create Group'}
                         </button>
                     </div>
                 </form>
